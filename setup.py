@@ -20,6 +20,7 @@ development_requires: List[str] = [
     "pydocstyle>=5.1.1",
     "twine>=3.3.0",
     "sphinx-autobuild>=2021.3.14",
+    "ipywidgets>=7.6.3",
 ]
 
 setuptools.setup(
