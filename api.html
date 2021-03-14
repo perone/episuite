@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Episuite API &#8212; Episuite</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.101715efdecc9b59cb6e1ddfa685c31f.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d8bbf5861d671d414e1a.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="ICU - Simulating ICU dynamics" href="icu_simulation_notebook.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+
+    
+      
+      <a class="navbar-brand" href="index.html">
+        <img src="_static/logo.png" class="logo" alt="logo">
+      </a>
+      
+    
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="installation.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="changelog.html">
+  Changelog
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="gettingstarted.html">
+  Getting Started
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="current reference internal nav-link" href="#">
+  Episuite API
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="license.html">
+  License
+ </a>
+</li>
+
+        
+      </ul>
+
+      <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/perone/episuite" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/tarantulae" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Episuite API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-episuite"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite</span></code> – Main package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-episuite.icu"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.icu</span></code> – Intensive Care Unit (ICU) tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-episuite.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.distributions</span></code> – Distributions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-episuite">
+   <code class="xref py py-mod docutils literal notranslate">
+    <span class="pre">
+     episuite
+    </span>
+   </code>
+   – Main package
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#module-episuite.icu">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       episuite.icu
+      </span>
+     </code>
+     – Intensive Care Unit (ICU) tools
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#module-episuite.distributions">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       episuite.distributions
+      </span>
+     </code>
+     – Distributions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="episuite-api">
+<h1>Episuite API<a class="headerlink" href="#episuite-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-episuite">
+<span id="episuite-main-package"></span><h2><a class="reference internal" href="#module-episuite" title="episuite"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite</span></code></a> – Main package<a class="headerlink" href="#module-episuite" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-episuite.icu">
+<span id="episuite-icu-intensive-care-unit-icu-tools"></span><h3><a class="reference internal" href="#module-episuite.icu" title="episuite.icu"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.icu</span></code></a> – Intensive Care Unit (ICU) tools<a class="headerlink" href="#module-episuite.icu" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="episuite.icu.ICUAdmissions">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.icu.</span></code><code class="sig-name descname"><span class="pre">ICUAdmissions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_admissions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.series.Series</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUAdmissions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUAdmissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class will wrap admissions (Series) and will
+provide utility methods to handle ICU admissions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s_admissions</strong> – a series with dates in the index
+and admissions for each day.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="episuite.icu.ICUAdmissions.get_admissions_series">
+<code class="sig-name descname"><span class="pre">get_admissions_series</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.series.Series</span><a class="reference internal" href="_modules/episuite/icu.html#ICUAdmissions.get_admissions_series"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUAdmissions.get_admissions_series" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.icu.ICUAdmissions.sanity_check">
+<code class="sig-name descname"><span class="pre">sanity_check</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/episuite/icu.html#ICUAdmissions.sanity_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUAdmissions.sanity_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="episuite.icu.ICUAdmissionsPlot">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.icu.</span></code><code class="sig-name descname"><span class="pre">ICUAdmissionsPlot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icu_admissions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#episuite.icu.ICUAdmissions" title="episuite.icu.ICUAdmissions"><span class="pre">episuite.icu.ICUAdmissions</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUAdmissionsPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUAdmissionsPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="episuite.icu.ICUAdmissionsPlot.bar">
+<code class="sig-name descname"><span class="pre">bar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locator</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'month'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/episuite/icu.html#ICUAdmissionsPlot.bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUAdmissionsPlot.bar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="episuite.icu.ICUSimulation">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.icu.</span></code><code class="sig-name descname"><span class="pre">ICUSimulation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">admissions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#episuite.icu.ICUAdmissions" title="episuite.icu.ICUAdmissions"><span class="pre">episuite.icu.ICUAdmissions</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration_distribution</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#episuite.distributions.DurationDistribution" title="episuite.distributions.DurationDistribution"><span class="pre">episuite.distributions.DurationDistribution</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="episuite.icu.ICUSimulation.get_admissions">
+<code class="sig-name descname"><span class="pre">get_admissions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#episuite.icu.ICUAdmissions" title="episuite.icu.ICUAdmissions"><span class="pre">episuite.icu.ICUAdmissions</span></a><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.get_admissions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.get_admissions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.icu.ICUSimulation.get_duration_distribution">
+<code class="sig-name descname"><span class="pre">get_duration_distribution</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#episuite.distributions.DurationDistribution" title="episuite.distributions.DurationDistribution"><span class="pre">episuite.distributions.DurationDistribution</span></a><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.get_duration_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.get_duration_distribution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.icu.ICUSimulation.simulate">
+<code class="sig-name descname"><span class="pre">simulate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.simulate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.icu.ICUSimulation.simulation_round">
+<code class="sig-name descname"><span class="pre">simulation_round</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.simulation_round"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.simulation_round" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="episuite.icu.ICUSimulationResults">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.icu.</span></code><code class="sig-name descname"><span class="pre">ICUSimulationResults</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icu_simulation</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#episuite.icu.ICUSimulation" title="episuite.icu.ICUSimulation"><span class="pre">episuite.icu.ICUSimulation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_simulation</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="episuite.icu.ICUSimulationResults.get_admissions">
+<code class="sig-name descname"><span class="pre">get_admissions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#episuite.icu.ICUAdmissions" title="episuite.icu.ICUAdmissions"><span class="pre">episuite.icu.ICUAdmissions</span></a><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResults.get_admissions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResults.get_admissions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.icu.ICUSimulationResults.get_simulation_results">
+<code class="sig-name descname"><span class="pre">get_simulation_results</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResults.get_simulation_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResults.get_simulation_results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.icu.ICUSimulationResults.hdi">
+<code class="sig-name descname"><span class="pre">hdi</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResults.hdi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResults.hdi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="episuite.icu.ICUSimulationResultsPlot">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.icu.</span></code><code class="sig-name descname"><span class="pre">ICUSimulationResultsPlot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_results</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#episuite.icu.ICUSimulationResults" title="episuite.icu.ICUSimulationResults"><span class="pre">episuite.icu.ICUSimulationResults</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResultsPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResultsPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="episuite.icu.ICUSimulationResultsPlot.lineplot">
+<code class="sig-name descname"><span class="pre">lineplot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResultsPlot.lineplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResultsPlot.lineplot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-episuite.distributions">
+<span id="episuite-distributions-distributions"></span><h3><a class="reference internal" href="#module-episuite.distributions" title="episuite.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.distributions</span></code></a> – Distributions<a class="headerlink" href="#module-episuite.distributions" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="episuite.distributions.DurationBootstrap">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.distributions.</span></code><code class="sig-name descname"><span class="pre">DurationBootstrap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">durations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/distributions.html#DurationBootstrap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.DurationBootstrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#episuite.distributions.DurationDistribution" title="episuite.distributions.DurationDistribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">episuite.distributions.DurationDistribution</span></code></a></p>
+<p>This distribution will bootstrap a specified list
+of durations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>replace</strong> – if sample w/ replacement or not</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="episuite.distributions.DurationBootstrap.from_durations">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_durations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">episuite.durations.Durations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/distributions.html#DurationBootstrap.from_durations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.DurationBootstrap.from_durations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.distributions.DurationBootstrap.sample">
+<code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="reference internal" href="_modules/episuite/distributions.html#DurationBootstrap.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.DurationBootstrap.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample from the duration distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> – amount of samples to draw.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>samples from the distribution</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="episuite.distributions.DurationDistribution">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.distributions.</span></code><code class="sig-name descname"><span class="pre">DurationDistribution</span></code><a class="reference internal" href="_modules/episuite/distributions.html#DurationDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.DurationDistribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Base class for a duration distribution.</p>
+<dl class="py method">
+<dt id="episuite.distributions.DurationDistribution.sample">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="reference internal" href="_modules/episuite/distributions.html#DurationDistribution.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.DurationDistribution.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample from the duration distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> – amount of samples to draw.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>samples from the distribution</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="icu_simulation_notebook.html" title="previous page">ICU - Simulating ICU dynamics</a>
+    <a class='right-next' id="next-link" href="license.html" title="next page">License</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d8bbf5861d671d414e1a.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2021, Christian S. Perone.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
