@@ -19,6 +19,7 @@ development_requires: List[str] = [
     "invoke>=1.5.0",
     "pydocstyle>=5.1.1",
     "twine>=3.3.0",
+    "sphinx-autobuild>=2021.3.14",
 ]
 
 setuptools.setup(

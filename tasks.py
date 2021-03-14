@@ -30,3 +30,8 @@ def ci_docs(c):
     c.run("python -m pip install --upgrade pip")
     c.run("pip install .[dev]")
     c.run("make -C docs html")
+
+
+@task
+def watch_docs(c):
+    c.run("sphinx-autobuild docs/source docs/build")
