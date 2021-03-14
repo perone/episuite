@@ -10,6 +10,8 @@ Episuite
 Welcome to **Episuite**. Episuite is a suite of tools for epidemiology 
 in Python.
 
+`Click here for documentation <https://perone.github.io/episuite>`_
+
 *Episuite is currently under development, and accepting contributions.*
 
 .. |Development Status| image:: https://img.shields.io/badge/Development%20Status-2%20--%20Alpha-yellow
