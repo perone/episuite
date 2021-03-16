@@ -31,7 +31,7 @@ class DurationBootstrap(DurationDistribution):
         self.replace = replace
 
     @classmethod
-    def from_durations(cls, duration: Durations):
+    def from_durations(cls, duration: Durations) -> 'DurationBootstrap':
         stay_distribution: np.ndarray = duration.get_stay_distribution()
         return cls(stay_distribution)
 

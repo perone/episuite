@@ -1,4 +1,5 @@
 import concurrent.futures
+from typing import Any
 
 import arviz as az
 import numpy as np
@@ -84,7 +85,7 @@ class ICUSimulation:
     def get_duration_distribution(self) -> DurationDistribution:
         return self.duration_distribution
 
-    def simulation_round(self):
+    def simulation_round(self) -> pd.Series:
         s_admissions = self.admissions.get_admissions_series()
         admission_counts = s_admissions.values.astype(np.int32)
         dates = s_admissions.index
@@ -100,7 +101,8 @@ class ICUSimulation:
         vals = pd.Series(new_dates_rep).value_counts().sort_index()
         return vals
 
-    def simulate(self, iterations=10, show_progress: bool = True):
+    def simulate(self, iterations: int = 10,
+                 show_progress: bool = True) -> 'ICUSimulationResults':
         simulations = []
         with concurrent.futures.ProcessPoolExecutor() as executor:
             futures = [executor.submit(self.simulation_round)
@@ -129,7 +131,7 @@ class ICUSimulationResults:
     def get_simulation_results(self) -> pd.DataFrame:
         return self.df_simulation
 
-    def hdi(self):
+    def hdi(self) -> pd.DataFrame:
         dates_idx = []
         lb95_idx = []
         ub95_idx = []
@@ -164,10 +166,10 @@ class ICUSimulationResults:
 
 
 class ICUSimulationResultsPlot:
-    def __init__(self, simulation_results: ICUSimulationResults):
+    def __init__(self, simulation_results: ICUSimulationResults) -> None:
         self.simulation_results = simulation_results
 
-    def lineplot(self):
+    def lineplot(self) -> Any:
         df_hdi = self.simulation_results.hdi()
         plt.plot(df_hdi.date, df_hdi.mean_val, color="orange", label="Estimated ICU Occupation")
         plt.fill_between(df_hdi.date, df_hdi.lb95, df_hdi.ub95, color="C1", alpha=0.3, label="95% credibility interval")
@@ -182,3 +184,4 @@ class ICUSimulationResultsPlot:
         plt.xlabel("Date")
         plt.ylabel("ICU Occupancy (number of patients)")
         plt.legend()
+        return plt.gca()

@@ -21,11 +21,12 @@ development_requires: List[str] = [
     "twine>=3.3.0",
     "sphinx-autobuild>=2021.3.14",
     "ipywidgets>=7.6.3",
+    "sphinxcontrib-bibtex>=2.2.0",
 ]
 
 setuptools.setup(
     name="episuite",
-    version="0.1.0",
+    version="0.2.0",
     author="Christian S. Perone",
     author_email="christian.perone@gmail.com",
     description="A suite of tools for epidemiology in Python",
@@ -39,6 +40,7 @@ setuptools.setup(
         "pymc3>=3.11.1",
         "seaborn>=0.11.1",
         "tqdm>=4.59.0",
+        "requests>=2.25.1",
     ],
     extras_require={
         'dev': development_requires,

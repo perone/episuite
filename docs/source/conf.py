@@ -38,10 +38,12 @@ extensions = [
     "sphinx.ext.viewcode",
     'sphinx.ext.githubpages',
     'sphinx.ext.autosummary',
-    'sphinx_tabs.tabs'
+    'sphinx_tabs.tabs',
+    'sphinxcontrib.bibtex',
 ]
 
 autosummary_generate = True
+bibtex_bibfiles = ['refs.bib']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

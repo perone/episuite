@@ -1,4 +1,4 @@
-from typing import List
+from typing import Any, Dict, List
 
 import numpy as np
 import pandas as pd
@@ -36,7 +36,7 @@ class Durations:
 
     def check_dataframe(self) -> None:
         if not set(self.COLUMNS).issubset(self.df_durations.columns):
-            raise ValueError(f"The dataframe should have {Durations.COLUMNS=}")
+            raise ValueError(f"The dataframe should have columns: {Durations.COLUMNS}")
 
     def get_stay_distribution(self) -> np.ndarray:
         diff = self.df_durations[self.COLUMN_END] - self.df_durations[self.COLUMN_START]
@@ -52,7 +52,7 @@ class DurationsPlot:
     def __init__(self, duration: Durations):
         self.duration = duration
 
-    def histogram(self, **kwargs):
+    def histogram(self, **kwargs: Dict) -> Any:
         df = self.duration.get_dataframe()
         ax = sns.histplot(
             df,
@@ -66,7 +66,7 @@ class DurationsPlot:
         sns.despine()
         return ax
 
-    def density(self, **kwargs):
+    def density(self, **kwargs: Dict) -> Any:
         df = self.duration.get_dataframe()
         ax = sns.displot(
             df,
@@ -79,7 +79,8 @@ class DurationsPlot:
         sns.despine()
         return ax
 
-    def timeplot(self, locator: str = "month", interval: int = 1, **kwargs):
+    def timeplot(self, locator: str = "month",
+                 interval: int = 1, **kwargs: Dict) -> Any:
         df = self.duration.get_dataframe()
         ax = sns.lineplot(
             data=df,
