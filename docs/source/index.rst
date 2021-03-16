@@ -19,13 +19,14 @@ in Python.
 .. note:: Episuite is currently under development, and accepting contributions.
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
    :caption: Contents:
 
    installation
    changelog
    gettingstarted
    api
+   bibliography
    license
    
 Indices and tables
