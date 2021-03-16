@@ -27,3 +27,8 @@ def lint_fix(c):
 @task
 def watch_docs(c):
     c.run("sphinx-autobuild docs/source docs/build")
+
+
+@task
+def make_docs(c):
+    c.run("cd docs; make html")

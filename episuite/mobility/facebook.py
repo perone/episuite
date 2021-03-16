@@ -32,7 +32,7 @@ class FacebookSymptomSurvey:
         r = requests.get(base_url, params=payload)
         return r.json()["data"]
 
-    def get_survey_range(self, country_name: str, 
+    def get_survey_range(self, country_name: str,
                          region_name: str,
                          start_date: str, end_date: str,
                          type_: str = "daily",
