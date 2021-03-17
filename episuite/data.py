@@ -1,13 +1,43 @@
-import io
-from typing import Optional
+from pathlib import Path
+from typing import BinaryIO, Optional, Union
 
 import pandas as pd
 import pkg_resources
 import requests
+from appdirs import AppDirs
 from tqdm.auto import tqdm
 
+import episuite
 
-def download_remote(url: str, stream: io.BufferedIOBase,
+
+def get_cache_dir_file(filename: Optional[Union[str, Path]] = None) -> Path:
+    dirs = AppDirs(episuite.__appname__,
+                   episuite.__author__,
+                   version=episuite.__version__)
+    cache_dir = Path(dirs.user_cache_dir)
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    if filename is not None:
+        cache_dir = cache_dir / Path(filename)
+    return cache_dir
+
+
+def load_from_cache(url: str, filename: Union[str, Path],
+                    desc: Optional[str] = None,
+                    show_progress: bool = True) -> Path:
+    cache_dir = get_cache_dir_file()
+    filename_output = cache_dir / Path(filename)
+
+    # Already exists in the cache
+    if filename_output.exists():
+        return filename_output
+
+    with filename_output.open(mode="wb") as fhandle:
+        download_remote(url, fhandle, desc, show_progress)
+
+    return filename_output
+
+
+def download_remote(url: str, stream: BinaryIO,
                     desc: Optional[str] = None,
                     show_progress: bool = True) -> None:
     """This function will download data frmo a remote URL and

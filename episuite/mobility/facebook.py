@@ -1,6 +1,15 @@
+import datetime
+import io
+import json
+import re
+import typing
 from typing import Dict
 
+import pandas as pd
 import requests
+from bs4 import BeautifulSoup
+
+from episuite import data
 
 
 class FacebookSymptomSurvey:
@@ -58,3 +67,41 @@ class FacebookSymptomSurvey:
         base_url = f"{self.base_url}/resources"
         r = requests.get(base_url, params=payload)
         return r.json()["data"]
+
+
+class MovementRangeDateURL(typing.NamedTuple):
+    date: datetime.date
+    url: str
+
+
+class FacebookMovementRange:
+    """This is a client API for Facebook Movement Range data.
+
+    .. seealso:: Please look at `HDX Movement Range Maps
+                 <https://data.humdata.org/dataset/movement-range-maps>`_
+                 for more information about this data.
+    """
+    MAIN_RESOURCE_URL = "https://data.humdata.org/dataset/movement-range-maps"
+
+    def _get_last_date_available(self) -> MovementRangeDateURL:
+        with io.BytesIO() as bio:
+            data.download_remote(self.MAIN_RESOURCE_URL,
+                                 bio, show_progress=False)
+            value = bio.getvalue()
+        soup = BeautifulSoup(value.decode("utf-8"), "html.parser")
+        parsed_json: Dict = json.loads("".join(soup.find("script", {
+            "type": "application/ld+json"
+        }).contents))
+
+        for item in parsed_json["@graph"]:
+            if "schema:name" not in item:
+                continue
+            schema_name: str = item["schema:name"]
+            if schema_name.startswith("movement-range-data-"):
+                y, m, d = re.findall(r'(\d{4})-(\d{2})-(\d{2})',
+                                     schema_name)[0]
+                last_available = pd.to_datetime(f"{y}/{m}/{d}",
+                                                format="%Y/%m/%d")
+                url = item["schema:contentUrl"]
+                break
+        return MovementRangeDateURL(last_available.date(), url)

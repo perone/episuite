@@ -41,6 +41,8 @@ setuptools.setup(
         "seaborn>=0.11.1",
         "tqdm>=4.59.0",
         "requests>=2.25.1",
+        "appdirs>=1.4.4",
+        "beautifulsoup4>=4.9.3",
     ],
     extras_require={
         'dev': development_requires,

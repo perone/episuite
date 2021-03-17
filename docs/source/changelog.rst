@@ -11,6 +11,7 @@ Release v.0.1.0 `(14 Mar 2021)`
 -------------------------------------------------------------------------------
     * Added more documentation;
     * Added bibliography section;
-    * Added Facebook mobility data;
+    * Added Facebook COVID-19 World Survey Data API support;
+    * Added Facebook Movement Range Maps;
     * Support to Python 3.7;
     * Minor bug-fixes and enhancements;
