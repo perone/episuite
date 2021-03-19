@@ -24,7 +24,7 @@ jobs:
         invoke lint
     - name: Test
       run: |
-        invoke test --no-slow
+        invoke test-ci
     - name: "Upload coverage to Codecov"
       uses: codecov/codecov-action@v1
       with:
