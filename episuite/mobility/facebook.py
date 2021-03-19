@@ -1,15 +1,15 @@
 import datetime
 import io
 import json
-from pathlib import Path
 import re
 import typing
+from pathlib import Path
 from typing import Dict, Optional
+from zipfile import ZipFile
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from zipfile import ZipFile
 
 from episuite import data
 
