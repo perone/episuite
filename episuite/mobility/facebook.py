@@ -1,13 +1,15 @@
 import datetime
 import io
 import json
+from pathlib import Path
 import re
 import typing
-from typing import Dict
+from typing import Dict, Optional
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from zipfile import ZipFile
 
 from episuite import data
 
@@ -69,9 +71,10 @@ class FacebookSymptomSurvey:
         return r.json()["data"]
 
 
-class MovementRangeDateURL(typing.NamedTuple):
+class MovementRangeResource(typing.NamedTuple):
     date: datetime.date
     url: str
+    filename: str
 
 
 class FacebookMovementRange:
@@ -83,7 +86,7 @@ class FacebookMovementRange:
     """
     MAIN_RESOURCE_URL = "https://data.humdata.org/dataset/movement-range-maps"
 
-    def _get_last_date_available(self) -> MovementRangeDateURL:
+    def _get_last_date_available(self) -> MovementRangeResource:
         with io.BytesIO() as bio:
             data.download_remote(self.MAIN_RESOURCE_URL,
                                  bio, show_progress=False)
@@ -104,4 +107,34 @@ class FacebookMovementRange:
                                                 format="%Y/%m/%d")
                 url = item["schema:contentUrl"]
                 break
-        return MovementRangeDateURL(last_available.date(), url)
+
+        return MovementRangeResource(last_available.date(), url, schema_name)
+
+    def _download_cache_resource(self, resource: MovementRangeResource,
+                                 show_progress: bool = True) -> Path:
+        cached_file = data.load_from_cache(resource.url, resource.filename,
+                                           "Downloading movement range data",
+                                           show_progress=show_progress)
+        return cached_file
+
+    def load_movement_range(self, country_code: Optional[str] = None,
+                            show_progress: bool = True) -> pd.DataFrame:
+        """This method will load the movement range data and optionally
+        filter for the specified country code.
+
+        :param country_code: country code (i.e. 'BRA' for Brazil)
+        :param show_progress: show download progress
+        :returns: a DataFrame with the movement range dataset
+        """
+        last_resource = self._get_last_date_available()
+        cached_file = self._download_cache_resource(last_resource, show_progress)
+        zip_file = ZipFile(cached_file)
+        with zip_file.open("movement-range-2021-03-17.txt", "r") as mrange:
+            if country_code is None:
+                df = pd.read_csv(mrange, delimiter="\t", low_memory=False)
+            else:
+                iter_csv = pd.read_csv(mrange, delimiter="\t",
+                                       iterator=True, chunksize=5000)
+                df = pd.concat([chunk[chunk['country'] == country_code]
+                               for chunk in iter_csv])
+        return df

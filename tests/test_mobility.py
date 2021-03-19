@@ -1,3 +1,4 @@
+import pytest
 from episuite.mobility import facebook
 
 
@@ -27,6 +28,20 @@ class TestFacebookSurvey:
 class TestFacebookMovementRange:
     def test_last_date_avail(self) -> None:
         mrange = facebook.FacebookMovementRange()
-        last_date = mrange._get_last_date_available()
-        assert "data.humdata.org" in last_date.url
-        assert last_date.date is not None
+        resource = mrange._get_last_date_available()
+        assert "data.humdata.org" in resource.url
+        assert resource.date is not None
+        assert resource.filename is not None
+
+    def test_download_resource(self) -> None:
+        mrange = facebook.FacebookMovementRange()
+        resource = mrange._get_last_date_available()
+        cached_file = mrange._download_cache_resource(resource, False)
+        assert cached_file.exists()
+
+    @pytest.mark.slow
+    def test_load_movement_range(self) -> None:
+        mrange = facebook.FacebookMovementRange()
+        df_bra = mrange.load_movement_range(country_code="BRA")
+        df_total = mrange.load_movement_range()
+        assert len(df_total) > len(df_bra)

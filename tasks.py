@@ -2,9 +2,11 @@ from invoke import task
 
 
 @task
-def test(c):
-    c.run("python -m pytest --cov=episuite tests/")
-
+def test(c, slow=True):
+    if slow:
+        c.run("python -m pytest --cov=episuite tests/")
+    else:
+        c.run("python -m pytest --cov=episuite -m 'not slow' tests/")
 
 @task
 def lint(c, docstyle=False):
