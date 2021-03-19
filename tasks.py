@@ -8,7 +8,7 @@ def test(c):
 
 @task
 def test_ci(c):
-    c.run("python -m pytest --cov=episuite -m 'not slow' tests/")
+    c.run("python -m pytest --cov=episuite -m \"not slow\" tests/")
 
 
 @task
