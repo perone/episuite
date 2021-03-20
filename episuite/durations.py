@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import numpy as np
 import pandas as pd
@@ -41,7 +41,7 @@ class Durations:
             raise ValueError(f"The dataframe should have columns: {columns}.")
 
     def get_stay_distribution(self) -> np.ndarray:
-        diff = self.df_durations[self.column_start] - self.df_durations[self.column_end]
+        diff = self.df_durations[self.column_end] - self.df_durations[self.column_start]
         return diff.dt.days.values
 
 
