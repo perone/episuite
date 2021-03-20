@@ -8,38 +8,40 @@ from matplotlib import pyplot as plt
 
 
 class Durations:
-    COLUMN_START: str = "DATE_START"
-    COLUMN_END: str = "DATE_END"
     COLUMN_STAY_DURATION: str = "__EPISUITE_STAY_DURATION"
 
-    COLUMNS: List[str] = [COLUMN_START, COLUMN_END]
-
-    def __init__(self, df_durations: pd.DataFrame, filter_gt: bool = True):
+    def __init__(self, df_durations: pd.DataFrame,
+                 column_start: str = "DATE_START",
+                 column_end: str = "DATE_END",
+                 filter_gt: bool = True):
         self.df_durations = df_durations.copy()
         self.filter_gt = filter_gt
-        self.check_dataframe()
+        self.column_start = column_start
+        self.column_end = column_end
+        self._check_dataframe()
 
         # Filter only valid durations, where end is
         # greater than or equal to the start
         if self.filter_gt:
-            gt_query = self.df_durations[self.COLUMN_END] >= \
-                self.df_durations[self.COLUMN_START]
+            gt_query = self.df_durations[self.column_end] >= \
+                self.df_durations[self.column_start]
             self.df_durations = self.df_durations[gt_query]
 
-        diff = self.df_durations[self.COLUMN_END] \
-            - self.df_durations[self.COLUMN_START]
+        diff = self.df_durations[self.column_end] \
+            - self.df_durations[self.column_start]
         self.df_durations[self.COLUMN_STAY_DURATION] = diff.dt.days
         self.plot = DurationsPlot(self)
 
     def get_dataframe(self) -> pd.DataFrame:
         return self.df_durations
 
-    def check_dataframe(self) -> None:
-        if not set(self.COLUMNS).issubset(self.df_durations.columns):
-            raise ValueError(f"The dataframe should have columns: {Durations.COLUMNS}")
+    def _check_dataframe(self) -> None:
+        columns = set([self.column_start, self.column_end])
+        if not set(columns).issubset(self.df_durations.columns):
+            raise ValueError(f"The dataframe should have columns: {columns}.")
 
     def get_stay_distribution(self) -> np.ndarray:
-        diff = self.df_durations[self.COLUMN_END] - self.df_durations[self.COLUMN_START]
+        diff = self.df_durations[self.column_start] - self.df_durations[self.column_end]
         return diff.dt.days.values
 
 
@@ -84,7 +86,7 @@ class DurationsPlot:
         df = self.duration.get_dataframe()
         ax = sns.lineplot(
             data=df,
-            x=Durations.COLUMN_START,
+            x=self.duration.column_start,
             y=Durations.COLUMN_STAY_DURATION,
             lw=0.8,
             **kwargs

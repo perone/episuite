@@ -59,8 +59,18 @@ def download_remote(url: str, stream: BinaryIO,
 
 
 def admissions_sample() -> pd.DataFrame:
-    """Sample data for hospitalization admissions. This data is based
-    on COVID-19 outbreak in Porto Alegre/RS/Brazil.
+    """Sample data for ICU hospitalization admissions. This data is based
+    on COVID-19 outbreak in Porto Alegre/RS/Brazil. This dataset contains
+    three columns that are described below.
+
+    DATE_START
+        When the patient enters in the ICU.
+
+    DATE_END
+        When the patient left the ICU by an outcome.
+
+    OUTCOME
+        Outcome when the patient left the ICU (DATE_END)
 
     :returns: sample data w/ admission
     """
