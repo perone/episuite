@@ -12,7 +12,7 @@ Release v.0.2.0 `(TBD)`
     * Added Facebook Movement Range Maps;
     * Support to Python 3.7;
     * Added testing for MacOS/Linux/Windows;
-    * Minor bug-fixes and enhancements;
+    * Minor bug-fixes, refactors and enhancements;
 
 Release v.0.1.0 `(14 Mar 2021)`
 -------------------------------------------------------------------------------

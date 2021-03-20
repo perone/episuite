@@ -6,6 +6,8 @@ import seaborn as sns
 from matplotlib import dates as mdates
 from matplotlib import pyplot as plt
 
+from episuite import distributions
+
 
 class Durations:
     COLUMN_STAY_DURATION: str = "__EPISUITE_STAY_DURATION"
@@ -32,17 +34,21 @@ class Durations:
         self.df_durations[self.COLUMN_STAY_DURATION] = diff.dt.days
         self.plot = DurationsPlot(self)
 
-    def get_dataframe(self) -> pd.DataFrame:
-        return self.df_durations
-
     def _check_dataframe(self) -> None:
         columns = set([self.column_start, self.column_end])
         if not set(columns).issubset(self.df_durations.columns):
             raise ValueError(f"The dataframe should have columns: {columns}.")
 
+    def get_dataframe(self) -> pd.DataFrame:
+        return self.df_durations
+
     def get_stay_distribution(self) -> np.ndarray:
         diff = self.df_durations[self.column_end] - self.df_durations[self.column_start]
         return diff.dt.days.values
+
+    def get_bootstrap(self) -> distributions.EmpiricalBootstrap:
+        stay_distribution: np.ndarray = self.get_stay_distribution()
+        return distributions.EmpiricalBootstrap(stay_distribution)
 
 
 class DurationsPlot:

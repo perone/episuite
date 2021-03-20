@@ -71,7 +71,7 @@ class TestICUSimulation:
 
         admissions = icu.ICUAdmissions(sample_data_admissions)
         dur = durations.Durations(sample_data)
-        duration_bootstrap = distributions.DurationBootstrap.from_durations(dur)
+        duration_bootstrap = dur.get_bootstrap()
         
         n_iterations = 2
         icu_sim = icu.ICUSimulation(admissions, duration_bootstrap)

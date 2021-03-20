@@ -4,9 +4,9 @@ import pytest
 from episuite import distributions
 
 
-class TestDurationBootstrap:
+class TestEmpiricalBootstrap:
     def test_sample(self) -> None:
         ones = np.ones(100, dtype=np.int32)
-        dist = distributions.DurationBootstrap(ones)
+        dist = distributions.EmpiricalBootstrap(ones)
         samples = dist.sample(100)
         assert (samples==1).sum() == 100

@@ -16,7 +16,8 @@ Episuite
 Welcome to **Episuite**. Episuite is a suite of tools for epidemiology 
 in Python.
 
-.. note:: Episuite is currently under development, and accepting contributions.
+.. note:: Episuite is currently under development, and accepting contributions. The
+          API might change in early development stages.
 
 .. toctree::
    :maxdepth: 4
