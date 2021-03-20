@@ -4,12 +4,15 @@ import json
 import re
 import typing
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from zipfile import ZipFile
 
 import pandas as pd
 import requests
+import seaborn as sns
 from bs4 import BeautifulSoup
+from matplotlib import dates as mdates
+from matplotlib import pyplot as plt
 
 from episuite import data
 
@@ -47,8 +50,13 @@ class FacebookSymptomSurvey:
                          region_name: str,
                          start_date: str, end_date: str,
                          type_: str = "daily",
-                         indicator: str = "covid") -> Dict:
-        """Retrieve data for a particular indicator.
+                         indicator: str = "covid") -> pd.DataFrame:
+        """Retrieve data for a particular indicator. This method
+        will return a DataFrame with pre-computed confidence
+        intervals (percent_cli_95_upper_ci/percent_cli_95_lower_ci).
+
+        .. seealso:: Please see :cite:t:`Maryland2021` for more information
+                    about the COVID-19 World Survey Data API.
 
         :param country_name: the name of the country
         :param region_name: name of the region.
@@ -68,7 +76,55 @@ class FacebookSymptomSurvey:
         }
         base_url = f"{self.base_url}/resources"
         r = requests.get(base_url, params=payload)
-        return r.json()["data"]
+        r = r.json()["data"]
+
+        df = pd.DataFrame(r)
+        df["survey_date"] = pd.to_datetime(df.survey_date, format="%Y%m%d")
+        df["percent_cli_95_upper_ci"] = (df.percent_cli + (1.96 * df.cli_se)) * 100.0
+        df["percent_cli_95_lower_ci"] = (df.percent_cli - (1.96 * df.cli_se)) * 100.0
+        return df
+
+    @staticmethod
+    def plot_region_percent_cli(df_survey_range: pd.DataFrame,
+                                locator: str = "month",
+                                interval: int = 1) -> Any:
+        """Plot the CLI (Covid-like illness) from the results
+        of a region.
+
+        :param df_survey_range: the results from the survey
+        :param locator: can be "month" or "day", to define the
+                        location of ticks in the plot for the dates
+        :param interval: interval to show the date labels in the plot
+        """
+        plt.plot(df_survey_range["survey_date"],
+                 df_survey_range.percent_cli * 100.0, color="red", lw=0.8,
+                 marker='o', markersize=5, markerfacecolor='w')
+        ax = plt.gca()
+        ax.fill_between(df_survey_range["survey_date"],
+                        df_survey_range.percent_cli_95_upper_ci,
+                        df_survey_range.percent_cli_95_lower_ci,
+                        alpha=0.2, lw=1.5, color="C1")
+
+        loc = mdates.MonthLocator(interval=interval)
+        formatter = mdates.DateFormatter(fmt="%b %Y")
+
+        if locator == "day":
+            loc = mdates.DayLocator(interval=interval)
+            formatter = mdates.DateFormatter(fmt="%d %b %Y")
+
+        ax.xaxis.set_major_locator(loc)
+        ax.xaxis.set_major_formatter(formatter)
+        ax.figure.autofmt_xdate(rotation=90, ha='center')
+
+        plt.grid(axis="both", which="major", linestyle="--", alpha=0.4)
+
+        plt.xlabel("Dates")
+        plt.ylabel("Weighted percentage w/ COVID-like illness")
+
+        plt.title("Facebook symptoms survey")
+        sns.despine()
+        plt.tight_layout()
+        return ax
 
 
 class MovementRangeResource(typing.NamedTuple):
@@ -129,7 +185,13 @@ class FacebookMovementRange:
         last_resource = self._get_last_date_available()
         cached_file = self._download_cache_resource(last_resource, show_progress)
         zip_file = ZipFile(cached_file)
-        with zip_file.open("movement-range-2021-03-17.txt", "r") as mrange:
+
+        fname = "<not found>"
+        for fobj in zip_file.filelist:
+            if fobj.filename.startswith("movement-range"):
+                fname = fobj.filename
+
+        with zip_file.open(fname, "r") as mrange:
             if country_code is None:
                 df = pd.read_csv(mrange, delimiter="\t", low_memory=False)
             else:

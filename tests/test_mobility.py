@@ -1,4 +1,5 @@
 import pytest
+from matplotlib import pyplot as plt
 
 from episuite.mobility import facebook
 
@@ -24,6 +25,13 @@ class TestFacebookSurvey:
         result = c.get_survey_range("Brazil", "Rio Grande do Sul",
                                     "20210101", "20210105")
         assert len(result) == 5
+
+    def test_plot_region_percent_cli(self) -> None:
+        c = facebook.FacebookSymptomSurvey()
+        result = c.get_survey_range("Brazil", "Rio Grande do Sul",
+                                    "20210101", "20210105")
+        c.plot_region_percent_cli(result)
+        plt.close()
 
 
 class TestFacebookMovementRange:
