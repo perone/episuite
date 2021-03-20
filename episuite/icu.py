@@ -1,5 +1,5 @@
 import concurrent.futures
-from typing import Any
+from typing import Any, Optional
 
 import arviz as az
 import numpy as np
@@ -14,7 +14,9 @@ from episuite.distributions import DurationDistribution
 
 class ICUAdmissions:
     """This class will wrap admissions (Series) and will
-    provide utility methods to handle ICU admissions.
+    provide utility methods to handle ICU admissions. The series
+    is sorted by the index in ascending manner. The series
+    is also copied.
 
     :param s_admissions: a series with dates in the index
                          and admissions for each day.
@@ -28,6 +30,11 @@ class ICUAdmissions:
         self.plot = ICUAdmissionsPlot(self)
 
     def sanity_check(self) -> None:
+        """This method will peform a check for the consistency of the
+        data. It will check if there are duplicates and also if there
+        are gaps between dates, which can be problematic when using
+        for simulation and modelling. It will trigger an exception
+        upon faliure."""
         index_duplicates = self.s_admissions.index.duplicated().sum()
         if index_duplicates > 0:
             raise ValueError(f"{index_duplicates} duplicated dates in the index.")
@@ -41,6 +48,7 @@ class ICUAdmissions:
                                  f"from the previous date {date_diff_before}.")
 
     def get_admissions_series(self) -> pd.Series:
+        """Returns the internal admission series."""
         return self.s_admissions
 
     def __repr__(self) -> str:
@@ -74,18 +82,37 @@ class ICUAdmissionsPlot:
 
 
 class ICUSimulation:
+    """This is the main class for the simulation of ICU/beds occupancy
+    based on observed admissions or predicted admission.
+
+    .. seealso::
+
+        `Forecasting critical care bed requirements for COVID-19 patients in England <https://cmmid.github.io/topics/covid19/ICU-projections.html>`_
+            This simulator is mainly based on this work by :cite:t:`ICUProjections2020`.
+
+        `Analysis of the SARS-CoV-2 outbreak in Rio Grande do Sul / Brazil <https://arxiv.org/abs/2007.10486>`_
+            This article :cite:t:`perone2020analysis` used this simulator and describes how it works.
+
+    :param admissions: the admissions (observed or forecast)
+    :param duration_distribution: it can be a fitted distribution supporting
+                                  the duration distribution or a empirical
+                                  distribution.
+    """
     def __init__(self, admissions: ICUAdmissions,
                  duration_distribution: DurationDistribution):
         self.admissions = admissions
         self.duration_distribution = duration_distribution
 
     def get_admissions(self) -> ICUAdmissions:
+        """Return the admissions."""
         return self.admissions
 
     def get_duration_distribution(self) -> DurationDistribution:
+        """Return the duration distribution."""
         return self.duration_distribution
 
     def simulation_round(self) -> pd.Series:
+        """This method will perform a single simulation round."""
         s_admissions = self.admissions.get_admissions_series()
         admission_counts = s_admissions.values.astype(np.int32)
         dates = s_admissions.index
@@ -102,9 +129,18 @@ class ICUSimulation:
         return vals
 
     def simulate(self, iterations: int = 10,
-                 show_progress: bool = True) -> 'ICUSimulationResults':
+                 show_progress: bool = True,
+                 max_workers: Optional[int] = None) -> 'ICUSimulationResults':
+        """This method will perform many rounds of simulation.
+
+        :param iterations: number of simulation rounds to incorporate
+                           the uncertainty from the LoS distribution.
+        :param show_progress: show the progress of simulation
+        :param max_workers: the number of workers to use (processes), default
+                            to the number of cores in the machine.
+        """
         simulations = []
-        with concurrent.futures.ProcessPoolExecutor() as executor:
+        with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
             futures = [executor.submit(self.simulation_round)
                        for _ in range(iterations)]
 
@@ -119,6 +155,12 @@ class ICUSimulation:
 
 
 class ICUSimulationResults:
+    """This class holds the results from many simulation rounds.
+
+    :param icu_simulation: the simulation instance that produced
+                           the results.
+    :param df_simulation: the results dataframe
+    """
     def __init__(self, icu_simulation: ICUSimulation,
                  df_simulation: pd.DataFrame):
         self.df_simulation = df_simulation
@@ -126,12 +168,16 @@ class ICUSimulationResults:
         self.plot = ICUSimulationResultsPlot(self)
 
     def get_admissions(self) -> ICUAdmissions:
+        """Returns the admissions used for simulation."""
         return self.icu_simulation.get_admissions()
 
     def get_simulation_results(self) -> pd.DataFrame:
+        """Returns the dataframe with the simulation results."""
         return self.df_simulation
 
     def hdi(self) -> pd.DataFrame:
+        """Returns a dataframe with computed HPD (high density interval),
+        mean and median values."""
         dates_idx = []
         lb95_idx = []
         ub95_idx = []
@@ -170,6 +216,7 @@ class ICUSimulationResultsPlot:
         self.simulation_results = simulation_results
 
     def lineplot(self) -> Any:
+        """Plot the simulation results and admissions used."""
         df_hdi = self.simulation_results.hdi()
         plt.plot(df_hdi.date, df_hdi.mean_val, color="orange", label="Estimated ICU Occupation")
         plt.fill_between(df_hdi.date, df_hdi.lb95, df_hdi.ub95, color="C1", alpha=0.3, label="95% credibility interval")
