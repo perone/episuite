@@ -23,13 +23,17 @@ def get_cache_dir_file(filename: Optional[Union[str, Path]] = None) -> Path:
 
 def load_from_cache(url: str, filename: Union[str, Path],
                     desc: Optional[str] = None,
-                    show_progress: bool = True) -> Path:
+                    show_progress: bool = True,
+                    invalidate: bool = False) -> Path:
     cache_dir = get_cache_dir_file()
     filename_output = cache_dir / Path(filename)
 
     # Already exists in the cache
     if filename_output.exists():
-        return filename_output
+        if invalidate:
+            filename_output.unlink()
+        else:
+            return filename_output
 
     with filename_output.open(mode="wb") as fhandle:
         download_remote(url, fhandle, desc, show_progress)

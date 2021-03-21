@@ -145,7 +145,8 @@ class FacebookMovementRange:
     def _get_last_date_available(self) -> MovementRangeResource:
         with io.BytesIO() as bio:
             data.download_remote(self.MAIN_RESOURCE_URL,
-                                 bio, show_progress=False)
+                                 bio, "Movement Range Maps",
+                                 show_progress=False)
             value = bio.getvalue()
         soup = BeautifulSoup(value.decode("utf-8"), "html.parser")
         parsed_json: Dict = json.loads("".join(soup.find("script", {

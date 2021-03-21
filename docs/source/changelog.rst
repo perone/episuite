@@ -5,7 +5,8 @@ releases of the project.
 
 Release v.0.3.0 `(to be defined)`
 -------------------------------------------------------------------------------
-    * TODO
+    * Added Google Global Mobility reports support;
+    * Cache invalidation option for downloads;
 
 Release v.0.2.0 `(21 Mar 2021)`
 -------------------------------------------------------------------------------

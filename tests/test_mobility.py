@@ -1,7 +1,7 @@
 import pytest
 from matplotlib import pyplot as plt
 
-from episuite.mobility import facebook
+from episuite.mobility import facebook, google
 
 
 class TestFacebookSurvey:
@@ -54,3 +54,18 @@ class TestFacebookMovementRange:
         df_bra = mrange.load_movement_range(country_code="BRA")
         df_total = mrange.load_movement_range()
         assert len(df_total) > len(df_bra)
+
+
+class TestGoogleMobility:
+    @pytest.mark.slow
+    def test_load_report(self) -> None:
+        client = google.GoogleMobility()
+        report = client.load_report(show_progress=False, cache=False)
+        assert len(report) > 0
+        cset = set(report.columns)
+        assert cset.issuperset(["country_region_code",
+                                "date"])
+
+        report_br = client.load_report("BR", show_progress=False)
+        assert len(report_br) > 0
+        assert len(report_br) < len(report)

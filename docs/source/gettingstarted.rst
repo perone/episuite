@@ -17,3 +17,4 @@ Below you will find a series of tutorials explaining
     icu_simulation_notebook.ipynb
     symptom_survey.ipynb
     mobility_facebook.ipynb
+    mobility_google.ipynb
