@@ -27,12 +27,12 @@ class FacebookSymptomSurvey:
     def __init__(self, base_url: str = "https://covidmap.umd.edu/api") -> None:
         self.base_url = base_url
 
-    def get_survey_country_region(self) -> Dict:
+    def get_survey_country_region(self) -> pd.DataFrame:
         """Get the survey country/region list."""
         r = requests.get(f"{self.base_url}/region")
-        return r.json()["data"]
+        return pd.DataFrame(r.json()["data"])
 
-    def get_survey_date_avail(self, country_name: str, region_name: str) -> Dict:
+    def get_survey_date_avail(self, country_name: str, region_name: str) -> pd.DataFrame:
         """Retrieve all dates for survey responses for a place.
 
         :param country_name: the name of the country
@@ -44,7 +44,7 @@ class FacebookSymptomSurvey:
         }
         base_url = f"{self.base_url}/datesavail"
         r = requests.get(base_url, params=payload)
-        return r.json()["data"]
+        return pd.DataFrame(r.json()["data"])
 
     def get_survey_range(self, country_name: str,
                          region_name: str,

@@ -16,3 +16,4 @@ Below you will find a series of tutorials explaining
     distributions_notebook.ipynb
     icu_simulation_notebook.ipynb
     symptom_survey.ipynb
+    mobility_facebook.ipynb
