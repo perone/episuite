@@ -3,7 +3,7 @@ Changelog
 In this section you'll find information about what's new in the newer
 releases of the project.
 
-Release v.0.2.0 `(TBD)`
+Release v.0.2.0 `(21 Mar 2021)`
 -------------------------------------------------------------------------------
     * Added more documentation;
     * Added more tutorials;
