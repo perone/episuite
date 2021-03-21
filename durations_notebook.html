@@ -86,6 +86,12 @@
 </li>
 
 <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="bibliography.html">
+  Bibliography
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="license.html">
   License
  </a>
@@ -129,13 +135,21 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="gettingstarted.html">Getting Started</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Durations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Durations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-sample-data">Load the sample data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Build-the-durations-object">Build the durations object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Data-visualization">Data visualization</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html">ICU - Admissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributions_notebook.html">Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU occupation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symptom_survey.html">COVID-19 World Survey Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mobility_facebook.html">Mobility: Facebook Movement Range Maps</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Episuite API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -146,9 +160,29 @@
           
           <div class="d-none d-xl-block col-xl-2 bd-toc">
               
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Load-the-sample-data">
+   Load the sample data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Build-the-durations-object">
+   Build the durations object
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Data-visualization">
+   Data visualization
+  </a>
+ </li>
+</ul>
+
 </nav>
 
 
@@ -414,15 +448,32 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Durations">
 <h1>Durations<a class="headerlink" href="#Durations" title="Permalink to this headline">¶</a></h1>
-<p>This section shows how to use the <code class="docutils literal notranslate"><span class="pre">Durations</span></code> functionality of Episuite.</p>
+<p>This section shows how to use the duration functionality of Episuite. The
+main class of this module is the <a class="reference internal" href="api.html#episuite.durations.Durations" title="episuite.durations.Durations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Durations</span></code></a>, that
+represents any kind of duration between events. One example is representing
+the length of stay (also known as LoS) for patients in ICU units.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the example below, we will use a sample dataset that comes embedded
+in Episuite with real data from the SARS-CoV-2 outbreak in south of Brazil.
+This dataset can be accessed using the <a class="reference internal" href="api.html#episuite.data.admissions_sample" title="episuite.data.admissions_sample"><code class="xref py py-meth docutils literal notranslate"><span class="pre">admissions_sample()</span></code></a>
+function from the <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data</span></code></a> module.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt>Module <a class="reference internal" href="api.html#module-episuite.durations" title="episuite.durations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.durations</span></code></a></dt><dd><p>Documentation of the <a class="reference internal" href="api.html#module-episuite.durations" title="episuite.durations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.durations</span></code></a> module.</p>
+</dd>
+<dt>Module <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code></a></dt><dd><p>Documentation of the <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code></a> module.</p>
+</dd>
+</dl>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">episuite</span>
+<span></span><span class="kn">import</span> <span class="nn">episuite</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="kn">from</span> <span class="nn">episuite.durations</span> <span class="kn">import</span> <span class="n">Durations</span>
@@ -430,6 +481,9 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="section" id="Load-the-sample-data">
+<h2>Load the sample data<a class="headerlink" href="#Load-the-sample-data" title="Permalink to this headline">¶</a></h2>
+<p>First we need to load a sample dataset.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -534,10 +588,15 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sample_data</span> <span class="o">=</span> <span class="n">sample_data</span><span class="p">[</span><span class="n">sample_data</span><span class="p">[</span><span class="s2">&quot;OUTCOME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;RECOVERY&quot;</span><span class="p">,</span> <span class="s2">&quot;DEATH&quot;</span><span class="p">])]</span>
+<span></span><span class="c1"># Here we are filtering only outcomes that were RECOVERY or DEATH.</span>
+<span class="n">sample_data</span> <span class="o">=</span> <span class="n">sample_data</span><span class="p">[</span><span class="n">sample_data</span><span class="p">[</span><span class="s2">&quot;OUTCOME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;RECOVERY&quot;</span><span class="p">,</span> <span class="s2">&quot;DEATH&quot;</span><span class="p">])]</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="Build-the-durations-object">
+<h2>Build the durations object<a class="headerlink" href="#Build-the-durations-object" title="Permalink to this headline">¶</a></h2>
+<p>Here we are going to build the durations object. Please note that this class requires you to specify the start and end date column names. By default, it will assume that the columns are named <strong>DATE_START</strong> and <strong>DATE_END</strong>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -547,6 +606,10 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="Data-visualization">
+<h2>Data visualization<a class="headerlink" href="#Data-visualization" title="Permalink to this headline">¶</a></h2>
+<p>The durations have a <code class="docutils literal notranslate"><span class="pre">plot</span></code> object that you can use to make visualizations of the duration distribution.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -563,7 +626,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/durations_notebook_7_0.svg" src="_images/durations_notebook_7_0.svg" /></div>
+<img alt="_images/durations_notebook_10_0.svg" src="_images/durations_notebook_10_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -581,7 +644,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/durations_notebook_8_0.svg" src="_images/durations_notebook_8_0.svg" /></div>
+<img alt="_images/durations_notebook_11_0.svg" src="_images/durations_notebook_11_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -607,8 +670,9 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/durations_notebook_9_1.svg" src="_images/durations_notebook_9_1.svg" /></div>
+<img alt="_images/durations_notebook_12_1.svg" src="_images/durations_notebook_12_1.svg" /></div>
 </div>
+<p>This plot shows the average distribution per day. In this case we are computing 100 bootstrap samples to compute the default confidence interval (CI 95%).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -624,7 +688,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/durations_notebook_10_0.svg" src="_images/durations_notebook_10_0.svg" /></div>
+<img alt="_images/durations_notebook_14_0.svg" src="_images/durations_notebook_14_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -641,7 +705,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/durations_notebook_11_0.svg" src="_images/durations_notebook_11_0.svg" /></div>
+<img alt="_images/durations_notebook_15_0.svg" src="_images/durations_notebook_15_0.svg" /></div>
+</div>
 </div>
 </div>
 
@@ -670,7 +735,7 @@ div.rendered_html tbody tr:hover {
   <div class="container">
     <p>
           &copy; Copyright 2021, Christian S. Perone.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
     </p>
   </div>
 </footer>

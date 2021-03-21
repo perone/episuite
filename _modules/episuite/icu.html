@@ -85,6 +85,12 @@
 </li>
 
 <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../bibliography.html">
+  Bibliography
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../license.html">
   License
  </a>
@@ -129,6 +135,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">Episuite API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
 </ul>
 
@@ -159,6 +166,7 @@
                 
   <h1>Source code for episuite.icu</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">concurrent.futures</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -173,7 +181,9 @@
 
 <div class="viewcode-block" id="ICUAdmissions"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUAdmissions">[docs]</a><span class="k">class</span> <span class="nc">ICUAdmissions</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;This class will wrap admissions (Series) and will</span>
-<span class="sd">    provide utility methods to handle ICU admissions.</span>
+<span class="sd">    provide utility methods to handle ICU admissions. The series</span>
+<span class="sd">    is sorted by the index in ascending manner. The series</span>
+<span class="sd">    is also copied.</span>
 
 <span class="sd">    :param s_admissions: a series with dates in the index</span>
 <span class="sd">                         and admissions for each day.</span>
@@ -187,6 +197,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">plot</span> <span class="o">=</span> <span class="n">ICUAdmissionsPlot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ICUAdmissions.sanity_check"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUAdmissions.sanity_check">[docs]</a>    <span class="k">def</span> <span class="nf">sanity_check</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This method will peform a check for the consistency of the</span>
+<span class="sd">        data. It will check if there are duplicates and also if there</span>
+<span class="sd">        are gaps between dates, which can be problematic when using</span>
+<span class="sd">        for simulation and modelling. It will trigger an exception</span>
+<span class="sd">        upon faliure.&quot;&quot;&quot;</span>
         <span class="n">index_duplicates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_admissions</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">index_duplicates</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">index_duplicates</span><span class="si">}</span><span class="s2"> duplicated dates in the index.&quot;</span><span class="p">)</span>
@@ -200,6 +215,7 @@
                                  <span class="sa">f</span><span class="s2">&quot;from the previous date </span><span class="si">{</span><span class="n">date_diff_before</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ICUAdmissions.get_admissions_series"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUAdmissions.get_admissions_series">[docs]</a>    <span class="k">def</span> <span class="nf">get_admissions_series</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the internal admission series.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_admissions</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -233,18 +249,37 @@
 
 
 <div class="viewcode-block" id="ICUSimulation"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulation">[docs]</a><span class="k">class</span> <span class="nc">ICUSimulation</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This is the main class for the simulation of ICU/beds occupancy</span>
+<span class="sd">    based on observed admissions or predicted admission.</span>
+
+<span class="sd">    .. seealso::</span>
+
+<span class="sd">        `Forecasting critical care bed requirements for COVID-19 patients in England &lt;https://cmmid.github.io/topics/covid19/ICU-projections.html&gt;`_</span>
+<span class="sd">            This simulator is mainly based on this work by :cite:t:`ICUProjections2020`.</span>
+
+<span class="sd">        `Analysis of the SARS-CoV-2 outbreak in Rio Grande do Sul / Brazil &lt;https://arxiv.org/abs/2007.10486&gt;`_</span>
+<span class="sd">            This article :cite:t:`perone2020analysis` used this simulator and describes how it works.</span>
+
+<span class="sd">    :param admissions: the admissions (observed or forecast)</span>
+<span class="sd">    :param duration_distribution: it can be a fitted distribution supporting</span>
+<span class="sd">                                  the duration distribution or a empirical</span>
+<span class="sd">                                  distribution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">admissions</span><span class="p">:</span> <span class="n">ICUAdmissions</span><span class="p">,</span>
                  <span class="n">duration_distribution</span><span class="p">:</span> <span class="n">DurationDistribution</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">admissions</span> <span class="o">=</span> <span class="n">admissions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">duration_distribution</span> <span class="o">=</span> <span class="n">duration_distribution</span>
 
 <div class="viewcode-block" id="ICUSimulation.get_admissions"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulation.get_admissions">[docs]</a>    <span class="k">def</span> <span class="nf">get_admissions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ICUAdmissions</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the admissions.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">admissions</span></div>
 
 <div class="viewcode-block" id="ICUSimulation.get_duration_distribution"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulation.get_duration_distribution">[docs]</a>    <span class="k">def</span> <span class="nf">get_duration_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DurationDistribution</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the duration distribution.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration_distribution</span></div>
 
-<div class="viewcode-block" id="ICUSimulation.simulation_round"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulation.simulation_round">[docs]</a>    <span class="k">def</span> <span class="nf">simulation_round</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ICUSimulation.simulation_round"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulation.simulation_round">[docs]</a>    <span class="k">def</span> <span class="nf">simulation_round</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This method will perform a single simulation round.&quot;&quot;&quot;</span>
         <span class="n">s_admissions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">admissions</span><span class="o">.</span><span class="n">get_admissions_series</span><span class="p">()</span>
         <span class="n">admission_counts</span> <span class="o">=</span> <span class="n">s_admissions</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
         <span class="n">dates</span> <span class="o">=</span> <span class="n">s_admissions</span><span class="o">.</span><span class="n">index</span>
@@ -260,9 +295,19 @@
         <span class="n">vals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">new_dates_rep</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">vals</span></div>
 
-<div class="viewcode-block" id="ICUSimulation.simulate"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulation.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="ICUSimulation.simulate"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulation.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+                 <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                 <span class="n">max_workers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ICUSimulationResults&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This method will perform many rounds of simulation.</span>
+
+<span class="sd">        :param iterations: number of simulation rounds to incorporate</span>
+<span class="sd">                           the uncertainty from the LoS distribution.</span>
+<span class="sd">        :param show_progress: show the progress of simulation</span>
+<span class="sd">        :param max_workers: the number of workers to use (processes), default</span>
+<span class="sd">                            to the number of cores in the machine.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">simulations</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">with</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">ProcessPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">ProcessPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="n">max_workers</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
             <span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulation_round</span><span class="p">)</span>
                        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">)]</span>
 
@@ -277,6 +322,12 @@
 
 
 <div class="viewcode-block" id="ICUSimulationResults"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulationResults">[docs]</a><span class="k">class</span> <span class="nc">ICUSimulationResults</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This class holds the results from many simulation rounds.</span>
+
+<span class="sd">    :param icu_simulation: the simulation instance that produced</span>
+<span class="sd">                           the results.</span>
+<span class="sd">    :param df_simulation: the results dataframe</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icu_simulation</span><span class="p">:</span> <span class="n">ICUSimulation</span><span class="p">,</span>
                  <span class="n">df_simulation</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">df_simulation</span> <span class="o">=</span> <span class="n">df_simulation</span>
@@ -284,12 +335,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">plot</span> <span class="o">=</span> <span class="n">ICUSimulationResultsPlot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ICUSimulationResults.get_admissions"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulationResults.get_admissions">[docs]</a>    <span class="k">def</span> <span class="nf">get_admissions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ICUAdmissions</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the admissions used for simulation.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">icu_simulation</span><span class="o">.</span><span class="n">get_admissions</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="ICUSimulationResults.get_simulation_results"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulationResults.get_simulation_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_simulation_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the dataframe with the simulation results.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">df_simulation</span></div>
 
-<div class="viewcode-block" id="ICUSimulationResults.hdi"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulationResults.hdi">[docs]</a>    <span class="k">def</span> <span class="nf">hdi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ICUSimulationResults.hdi"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulationResults.hdi">[docs]</a>    <span class="k">def</span> <span class="nf">hdi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns a dataframe with computed HPD (high density interval),</span>
+<span class="sd">        mean and median values.&quot;&quot;&quot;</span>
         <span class="n">dates_idx</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">lb95_idx</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">ub95_idx</span> <span class="o">=</span> <span class="p">[]</span>
@@ -324,10 +379,11 @@
 
 
 <div class="viewcode-block" id="ICUSimulationResultsPlot"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulationResultsPlot">[docs]</a><span class="k">class</span> <span class="nc">ICUSimulationResultsPlot</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_results</span><span class="p">:</span> <span class="n">ICUSimulationResults</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_results</span><span class="p">:</span> <span class="n">ICUSimulationResults</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">simulation_results</span> <span class="o">=</span> <span class="n">simulation_results</span>
 
-<div class="viewcode-block" id="ICUSimulationResultsPlot.lineplot"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulationResultsPlot.lineplot">[docs]</a>    <span class="k">def</span> <span class="nf">lineplot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ICUSimulationResultsPlot.lineplot"><a class="viewcode-back" href="../../api.html#episuite.icu.ICUSimulationResultsPlot.lineplot">[docs]</a>    <span class="k">def</span> <span class="nf">lineplot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Plot the simulation results and admissions used.&quot;&quot;&quot;</span>
         <span class="n">df_hdi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_results</span><span class="o">.</span><span class="n">hdi</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_hdi</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">df_hdi</span><span class="o">.</span><span class="n">mean_val</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Estimated ICU Occupation&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">df_hdi</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">df_hdi</span><span class="o">.</span><span class="n">lb95</span><span class="p">,</span> <span class="n">df_hdi</span><span class="o">.</span><span class="n">ub95</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;95</span><span class="si">% c</span><span class="s2">redibility interval&quot;</span><span class="p">)</span>
@@ -341,7 +397,8 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">s_admissions</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">s_admissions</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Admissions per day&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;ICU Occupancy (number of patients)&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span></div></div>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span></div></div>
 </pre></div>
 
               </div>
@@ -366,7 +423,7 @@
   <div class="container">
     <p>
           &copy; Copyright 2021, Christian S. Perone.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
     </p>
   </div>
 </footer>

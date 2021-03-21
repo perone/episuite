@@ -1,0 +1,829 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobility: Facebook Movement Range Maps &#8212; Episuite</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.101715efdecc9b59cb6e1ddfa685c31f.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d8bbf5861d671d414e1a.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Episuite API" href="api.html" />
+    <link rel="prev" title="COVID-19 World Survey Data API" href="symptom_survey.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+
+    
+      
+      <a class="navbar-brand" href="index.html">
+        <img src="_static/logo.png" class="logo" alt="logo">
+      </a>
+      
+    
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="installation.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="changelog.html">
+  Changelog
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="gettingstarted.html">
+  Getting Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="api.html">
+  Episuite API
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="bibliography.html">
+  Bibliography
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="license.html">
+  License
+ </a>
+</li>
+
+        
+      </ul>
+
+      <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/perone/episuite" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/tarantulae" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="gettingstarted.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="durations_notebook.html">Durations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html">ICU - Admissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributions_notebook.html">Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU occupation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symptom_survey.html">COVID-19 World Survey Data API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Mobility: Facebook Movement Range Maps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Load-Movement-Range-Maps-data">Load Movement Range Maps data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Visualization">Visualization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Episuite API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Load-Movement-Range-Maps-data">
+   Load Movement Range Maps data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Visualization">
+   Visualization
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Mobility:-Facebook-Movement-Range-Maps">
+<h1>Mobility: Facebook Movement Range Maps<a class="headerlink" href="#Mobility:-Facebook-Movement-Range-Maps" title="Permalink to this headline">¶</a></h1>
+<p>This section describes how to use the Facebook Movement Range Maps client
+from Episuite. The main class used to download and parse the Facebook
+Symptom survey data is the <a class="reference internal" href="api.html#episuite.mobility.facebook.FacebookMovementRange" title="episuite.mobility.facebook.FacebookMovementRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">FacebookMovementRange</span></code></a>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://dataforgood.fb.com/tools/movement-range-maps/">Facebook: Data for good - Movement Range Maps</a></dt><dd><p>Documentation of the Movement Range Maps.</p>
+</dd>
+<dt>Module <a class="reference internal" href="api.html#module-episuite.mobility.facebook" title="episuite.mobility.facebook"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility.facebook</span></code></a></dt><dd><p>Documentation of the <a class="reference internal" href="api.html#module-episuite.mobility.facebook" title="episuite.mobility.facebook"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility.facebook</span></code></a> module.</p>
+</dd>
+</dl>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">episuite.mobility</span> <span class="kn">import</span> <span class="n">facebook</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Load-Movement-Range-Maps-data">
+<h2>Load Movement Range Maps data<a class="headerlink" href="#Load-Movement-Range-Maps-data" title="Permalink to this headline">¶</a></h2>
+<p>The Episuite API for the Facebook Movement Range Maps allows you to download the entire range maps data or to filter by a single country by using a country code. We will here just download data from Brazil using the <code class="docutils literal notranslate"><span class="pre">BRA</span></code> country code.</p>
+<p>The movement range maps are increasing in size every day, that’s why filtering by your country code is highly recommended. If you specify the <code class="docutils literal notranslate"><span class="pre">country_code</span></code> while calling the <code class="docutils literal notranslate"><span class="pre">load_movement_range()</span></code>, Episuite will filter the dataset without loading it entirely to memory.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">client</span> <span class="o">=</span> <span class="n">facebook</span><span class="o">.</span><span class="n">FacebookMovementRange</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mrange_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">load_movement_range</span><span class="p">(</span><span class="n">country_code</span><span class="o">=</span><span class="s2">&quot;BRA&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6f849dd0c4504093b6fad2ed39875bc3"}</script></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mrange_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>country</th>
+      <th>polygon_source</th>
+      <th>polygon_id</th>
+      <th>polygon_name</th>
+      <th>all_day_bing_tiles_visited_relative_change</th>
+      <th>all_day_ratio_single_tile_users</th>
+      <th>baseline_name</th>
+      <th>baseline_type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1525975</th>
+      <td>2021-03-12</td>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.9.98_1</td>
+      <td>Guapó</td>
+      <td>-0.19013</td>
+      <td>0.25627</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>1525976</th>
+      <td>2021-03-13</td>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.9.98_1</td>
+      <td>Guapó</td>
+      <td>-0.25377</td>
+      <td>0.26759</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>1525977</th>
+      <td>2021-03-14</td>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.9.98_1</td>
+      <td>Guapó</td>
+      <td>-0.27125</td>
+      <td>0.31333</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>1525978</th>
+      <td>2021-03-15</td>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.9.98_1</td>
+      <td>Guapó</td>
+      <td>-0.11685</td>
+      <td>0.25014</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>1525979</th>
+      <td>2021-03-16</td>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.9.98_1</td>
+      <td>Guapó</td>
+      <td>-0.09969</td>
+      <td>0.28633</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>1525980</th>
+      <td>2021-03-17</td>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.9.98_1</td>
+      <td>Guapó</td>
+      <td>-0.12332</td>
+      <td>0.26972</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>1525981</th>
+      <td>2021-03-18</td>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.9.98_1</td>
+      <td>Guapó</td>
+      <td>-0.20530</td>
+      <td>0.28424</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>1525982</th>
+      <td>2021-03-19</td>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.9.98_1</td>
+      <td>Guapó</td>
+      <td>-0.17599</td>
+      <td>0.25957</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The Movement Range Maps uses the country codes and geographical data from <a class="reference external" href="https://gadm.org/">GADM</a>. So you will have to download it to be able to plot geographical data. You can also filter by a specific ID or polygon name such as in the example below.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">porto_alegre</span> <span class="o">=</span> <span class="n">mrange_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;polygon_name == &#39;Porto Alegre&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">porto_alegre</span> <span class="o">=</span> <span class="n">porto_alegre</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;ds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">porto_alegre</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>polygon_source</th>
+      <th>polygon_id</th>
+      <th>polygon_name</th>
+      <th>all_day_bing_tiles_visited_relative_change</th>
+      <th>all_day_ratio_single_tile_users</th>
+      <th>baseline_name</th>
+      <th>baseline_type</th>
+    </tr>
+    <tr>
+      <th>ds</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-03-15</th>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.21.305_1</td>
+      <td>Porto Alegre</td>
+      <td>-0.33384</td>
+      <td>0.33542</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>2021-03-16</th>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.21.305_1</td>
+      <td>Porto Alegre</td>
+      <td>-0.31585</td>
+      <td>0.34260</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>2021-03-17</th>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.21.305_1</td>
+      <td>Porto Alegre</td>
+      <td>-0.33439</td>
+      <td>0.34322</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>2021-03-18</th>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.21.305_1</td>
+      <td>Porto Alegre</td>
+      <td>-0.32333</td>
+      <td>0.33894</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+    <tr>
+      <th>2021-03-19</th>
+      <td>BRA</td>
+      <td>GADM</td>
+      <td>BRA.21.305_1</td>
+      <td>Porto Alegre</td>
+      <td>-0.31862</td>
+      <td>0.31925</td>
+      <td>full_february</td>
+      <td>DAY_OF_WEEK</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Visualization">
+<h2>Visualization<a class="headerlink" href="#Visualization" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">porto_alegre</span><span class="p">[</span><span class="s2">&quot;all_day_bing_tiles_visited_relative_change&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;all_day_bing_tiles_visited_relative_change&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/mobility_facebook_11_0.svg" src="_images/mobility_facebook_11_0.svg" /></div>
+</div>
+<p>We can see in this case a major reduction of mobility during the early months of the pandemic in Porto Alegre/Rio Grande do Sul/Brazil, followed by a slow rise in mobility with a downward trend after February due to the surge of cases in the city (after new mobility restrictions were deployed by the government).</p>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"61c06eaa021b465fa298efd12294a8cb": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "73a3a438d52949d5aa2a44caeae304b1": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "2fcad503537f4266810d6325a975a349": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_61c06eaa021b465fa298efd12294a8cb", "max": 66084044.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_73a3a438d52949d5aa2a44caeae304b1", "value": 66084044.0}}, "442eb48da0c440868b13152d8d9de321": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "857ae9020d4549a2bcbd351e6f80ded1": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "73828bbd29ac4a7893a1d8349269a35c": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_442eb48da0c440868b13152d8d9de321", "placeholder": "\u200b", "style": "IPY_MODEL_857ae9020d4549a2bcbd351e6f80ded1", "value": "Downloading movement range data: 100%"}}, "505ba5eac1544ad0991c61825f326cfd": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "1ea6a9e6e93b41f884c08856f5c84292": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "ce6b27592c6e4767ab744a0c5744fe2f": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_505ba5eac1544ad0991c61825f326cfd", "placeholder": "\u200b", "style": "IPY_MODEL_1ea6a9e6e93b41f884c08856f5c84292", "value": " 63.0M/63.0M [00:03&lt;00:00, 24.7MiB/s]"}}, "cd00b4c48bc74068a01ebbe90ca68b5d": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "6f849dd0c4504093b6fad2ed39875bc3": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_73828bbd29ac4a7893a1d8349269a35c", "IPY_MODEL_2fcad503537f4266810d6325a975a349", "IPY_MODEL_ce6b27592c6e4767ab744a0c5744fe2f"], "layout": "IPY_MODEL_cd00b4c48bc74068a01ebbe90ca68b5d"}}}, "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="symptom_survey.html" title="previous page">COVID-19 World Survey Data API</a>
+    <a class='right-next' id="next-link" href="api.html" title="next page">Episuite API</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d8bbf5861d671d414e1a.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2021, Christian S. Perone.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

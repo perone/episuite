@@ -85,6 +85,12 @@
 </li>
 
 <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../bibliography.html">
+  Bibliography
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../license.html">
   License
  </a>
@@ -129,6 +135,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">Episuite API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
 </ul>
 
@@ -163,8 +170,6 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">episuite.durations</span> <span class="kn">import</span> <span class="n">Durations</span>
-
 
 <div class="viewcode-block" id="DurationDistribution"><a class="viewcode-back" href="../../api.html#episuite.distributions.DurationDistribution">[docs]</a><span class="k">class</span> <span class="nc">DurationDistribution</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for a duration distribution.&quot;&quot;&quot;</span>
@@ -179,30 +184,25 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
 
 
-<div class="viewcode-block" id="DurationBootstrap"><a class="viewcode-back" href="../../api.html#episuite.distributions.DurationBootstrap">[docs]</a><span class="k">class</span> <span class="nc">DurationBootstrap</span><span class="p">(</span><span class="n">DurationDistribution</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This distribution will bootstrap a specified list</span>
-<span class="sd">    of durations.</span>
+<div class="viewcode-block" id="EmpiricalBootstrap"><a class="viewcode-back" href="../../api.html#episuite.distributions.EmpiricalBootstrap">[docs]</a><span class="k">class</span> <span class="nc">EmpiricalBootstrap</span><span class="p">(</span><span class="n">DurationDistribution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This distribution will bootstrap from an empirical</span>
+<span class="sd">    distribution.</span>
 
 <span class="sd">    :param replace: if sample w/ replacement or not</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">durations</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">samples</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
                  <span class="n">replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">durations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">durations</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">replace</span> <span class="o">=</span> <span class="n">replace</span>
 
-<div class="viewcode-block" id="DurationBootstrap.from_durations"><a class="viewcode-back" href="../../api.html#episuite.distributions.DurationBootstrap.from_durations">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_durations</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="n">Durations</span><span class="p">):</span>
-        <span class="n">stay_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">duration</span><span class="o">.</span><span class="n">get_stay_distribution</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">stay_distribution</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="DurationBootstrap.sample"><a class="viewcode-back" href="../../api.html#episuite.distributions.DurationBootstrap.sample">[docs]</a>    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="EmpiricalBootstrap.sample"><a class="viewcode-back" href="../../api.html#episuite.distributions.EmpiricalBootstrap.sample">[docs]</a>    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Sample from the duration distribution.</span>
 
 <span class="sd">        :param size: amount of samples to draw.</span>
 <span class="sd">        :returns: samples from the distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">size</span> <span class="o">=</span> <span class="n">size</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">durations</span><span class="p">)</span>
-        <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">durations</span><span class="p">,</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">size</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">)</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">,</span>
                                    <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
                                    <span class="n">replace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">replace</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">samples</span></div></div>
@@ -230,7 +230,7 @@
   <div class="container">
     <p>
           &copy; Copyright 2021, Christian S. Perone.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
     </p>
   </div>
 </footer>

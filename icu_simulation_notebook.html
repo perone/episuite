@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ICU - Simulating ICU dynamics &#8212; Episuite</title>
+    <title>ICU - Simulating ICU occupation &#8212; Episuite</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.101715efdecc9b59cb6e1ddfa685c31f.css" rel="stylesheet" />
@@ -36,7 +36,7 @@
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Episuite API" href="api.html" />
+    <link rel="next" title="COVID-19 World Survey Data API" href="symptom_survey.html" />
     <link rel="prev" title="Distributions" href="distributions_notebook.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -82,6 +82,12 @@
 <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="api.html">
   Episuite API
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="bibliography.html">
+  Bibliography
  </a>
 </li>
 
@@ -132,10 +138,18 @@
 <li class="toctree-l2"><a class="reference internal" href="durations_notebook.html">Durations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html">ICU - Admissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributions_notebook.html">Distributions</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ICU - Simulating ICU dynamics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ICU - Simulating ICU occupation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Preparing-admissions">Preparing admissions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Durations-(length-of-stay)">Durations (length of stay)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="symptom_survey.html">COVID-19 World Survey Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mobility_facebook.html">Mobility: Facebook Movement Range Maps</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Episuite API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -146,9 +160,29 @@
           
           <div class="d-none d-xl-block col-xl-2 bd-toc">
               
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Preparing-admissions">
+   Preparing admissions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Durations-(length-of-stay)">
+   Durations (length of stay)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Visualization">
+   Visualization
+  </a>
+ </li>
+</ul>
+
 </nav>
 
 
@@ -412,17 +446,38 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="ICU---Simulating-ICU-dynamics">
-<h1>ICU - Simulating ICU dynamics<a class="headerlink" href="#ICU---Simulating-ICU-dynamics" title="Permalink to this headline">¶</a></h1>
-<p>This section shows how to use the <code class="docutils literal notranslate"><span class="pre">icu</span></code> simulation functionality of Episuite.</p>
+<div class="section" id="ICU---Simulating-ICU-occupation">
+<h1>ICU - Simulating ICU occupation<a class="headerlink" href="#ICU---Simulating-ICU-occupation" title="Permalink to this headline">¶</a></h1>
+<p>This section shows how to use the ICU simulation from Episuite.
+The main class used for the ICU simulation is the <a class="reference internal" href="api.html#episuite.icu.ICUSimulation" title="episuite.icu.ICUSimulation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICUSimulation</span></code></a>,
+that can be used by specifying admissions and a duration distribution. For more
+information about how the simulation is performed, please see the class documentation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the example below, we will use a sample dataset that comes embedded
+in Episuite with real data from the SARS-CoV-2 outbreak in south of Brazil.
+This dataset can be accessed using the <a class="reference internal" href="api.html#episuite.data.admissions_sample" title="episuite.data.admissions_sample"><code class="xref py py-meth docutils literal notranslate"><span class="pre">admissions_sample()</span></code></a>
+function from the <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data</span></code></a> module.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt>Module <a class="reference internal" href="api.html#module-episuite.distributions" title="episuite.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.distributions</span></code></a></dt><dd><p>Documentation of the <a class="reference internal" href="api.html#module-episuite.distributions" title="episuite.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.distributions</span></code></a> module.</p>
+</dd>
+<dt>Module <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code></a></dt><dd><p>Documentation of the <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code></a> module.</p>
+</dd>
+<dt><a class="reference external" href="https://cmmid.github.io/topics/covid19/ICU-projections.html">Forecasting critical care bed requirements for COVID-19 patients in England</a></dt><dd><p>This simulator is mainly based on this work by <span id="id1">Jombart <em>et al.</em> [<a class="reference internal" href="bibliography.html#id3">JNJ+20</a>]</span>.</p>
+</dd>
+<dt><a class="reference external" href="https://arxiv.org/abs/2007.10486">Analysis of the SARS-CoV-2 outbreak in Rio Grande do Sul / Brazil</a></dt><dd><p>This article <span id="id2">Perone [<a class="reference internal" href="bibliography.html#id4">Per20</a>]</span> used this simulator and describes how it works.</p>
+</dd>
+</dl>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">episuite</span>
+<span></span><span class="kn">import</span> <span class="nn">episuite</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="kn">from</span> <span class="nn">episuite</span> <span class="kn">import</span> <span class="n">icu</span><span class="p">,</span> <span class="n">durations</span><span class="p">,</span> <span class="n">distributions</span>
@@ -430,6 +485,9 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="section" id="Preparing-admissions">
+<h2>Preparing admissions<a class="headerlink" href="#Preparing-admissions" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to prepare the admissions that we want to use for simulation. These admissions can be observed and corrected for right-censoring or projected admissions to simulate different scenarios.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -465,8 +523,12 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/icu_simulation_notebook_4_0.svg" src="_images/icu_simulation_notebook_4_0.svg" /></div>
+<img alt="_images/icu_simulation_notebook_5_0.svg" src="_images/icu_simulation_notebook_5_0.svg" /></div>
 </div>
+</div>
+<div class="section" id="Durations-(length-of-stay)">
+<h2>Durations (length of stay)<a class="headerlink" href="#Durations-(length-of-stay)" title="Permalink to this headline">¶</a></h2>
+<p>Let’s now prepare the duration distribution, for the observed length of stay (LoS).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -481,8 +543,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">dur</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">timeplot</span><span class="p">()</span>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">dur</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">timeplot</span><span class="p">(</span><span class="n">n_boot</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -491,18 +553,21 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/icu_simulation_notebook_6_0.svg" src="_images/icu_simulation_notebook_6_0.svg" /></div>
+<img alt="_images/icu_simulation_notebook_8_0.svg" src="_images/icu_simulation_notebook_8_0.svg" /></div>
 </div>
+<p>As we can see in the figure above, the LoS for the ICU occupation varies a lot in the beginning of the pandemic and then stabilizes later with a drop at the end due to a bias present in the dataset. This bias would ideally be corrected in order to do nowcasting or forecasting for different scenarios.</p>
+<p>Now, we are going to get a bootstrap distribution for the LoS and the instantiate the <code class="docutils literal notranslate"><span class="pre">ICUSimulation</span></code> using this distribution of stays and the admissions we observed.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">duration_bootstrap</span> <span class="o">=</span> <span class="n">distributions</span><span class="o">.</span><span class="n">DurationBootstrap</span><span class="o">.</span><span class="n">from_durations</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+<span></span><span class="n">duration_bootstrap</span> <span class="o">=</span> <span class="n">dur</span><span class="o">.</span><span class="n">get_bootstrap</span><span class="p">()</span>
 <span class="n">icu_sim</span> <span class="o">=</span> <span class="n">icu</span><span class="o">.</span><span class="n">ICUSimulation</span><span class="p">(</span><span class="n">admissions</span><span class="p">,</span> <span class="n">duration_bootstrap</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<p>We will now simulate 5 rounds to incorporate the uncertainty of the LoS distribution. Usually you would do more than 50 rounds.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -516,10 +581,145 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "c62bd2cb42874a5ca50f0837f18a8af6"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "7ef51e459f5a4ff7b2eea40387d6b97b"}</script></div>
 </div>
-<div class="nbinput nblast docutils container">
+<p>We can now compute confidence intervals and inspect the simulation results. The method <code class="docutils literal notranslate"><span class="pre">get_simulation_results()</span></code> will give you a dataframe indexed by day and with each simulation as a column, representing different occupancy values for each day and taking the LoS uncertainty into account.</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">results</span><span class="o">.</span><span class="n">get_simulation_results</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020-03-18</th>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>2020-03-19</th>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2020-03-20</th>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>2020-03-21</th>
+      <td>6.0</td>
+      <td>6.0</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>2020-03-22</th>
+      <td>8.0</td>
+      <td>8.0</td>
+      <td>6</td>
+      <td>6</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2021-07-30</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2021-07-31</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2021-08-01</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2021-08-02</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2021-08-03</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>504 rows × 5 columns</p>
+</div></div>
+</div>
+<p>To compute confidence intervals, we just have to call the <code class="docutils literal notranslate"><span class="pre">hdi()</span></code> method. This will result a dataframe with the confidence intervals (lb95 = lower bound .95 HDI, ub95 = upper bound .95 HDI).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -528,7 +728,106 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>lb95</th>
+      <th>ub95</th>
+      <th>lb50</th>
+      <th>ub50</th>
+      <th>mean_val</th>
+      <th>median_val</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020-03-18</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020-03-19</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020-03-20</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2020-03-21</td>
+      <td>6.0</td>
+      <td>6.0</td>
+      <td>6.0</td>
+      <td>6.0</td>
+      <td>6.0</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2020-03-22</td>
+      <td>6.0</td>
+      <td>8.0</td>
+      <td>8.0</td>
+      <td>8.0</td>
+      <td>7.2</td>
+      <td>8.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Visualization">
+<h2>Visualization<a class="headerlink" href="#Visualization" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -542,10 +841,11 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/icu_simulation_notebook_10_0.svg" src="_images/icu_simulation_notebook_10_0.svg" /></div>
+<img alt="_images/icu_simulation_notebook_19_0.svg" src="_images/icu_simulation_notebook_19_0.svg" /></div>
 </div>
+<p>We can see here the results of the simulation and the uncertainty for each day. You can see that after stopping admissions, to have a drop to zero occupancy we need to wait for more than one month. This shows also how concerning are COVID-19 hospitalizations, they rise quickly but take a lot of time to dissipate.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -559,20 +859,12 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/icu_simulation_notebook_11_0.svg" src="_images/icu_simulation_notebook_11_0.svg" /></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
+<img alt="_images/icu_simulation_notebook_21_0.svg" src="_images/icu_simulation_notebook_21_0.svg" /></div>
 </div>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"82683bff965e49ac8f4b1b3c354ed655": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "8d9302bfbbfc44bcac86ebbc0c8caca3": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "afffe6a31d7d42c69bd9a71ed512d216": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_82683bff965e49ac8f4b1b3c354ed655", "max": 5.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_8d9302bfbbfc44bcac86ebbc0c8caca3", "value": 5.0}}, "9bb5c564f3b6411eaeeb04e381ed6932": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "edcf63953b8d4017a32980826766e3e7": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "aafd2c14f8564a7c84bf3eac42a959a9": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_9bb5c564f3b6411eaeeb04e381ed6932", "placeholder": "\u200b", "style": "IPY_MODEL_edcf63953b8d4017a32980826766e3e7", "value": "Simulation: 100%"}}, "ef59932aec8247d5b818c6b580b5c3e7": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "e2f4d3d92eeb4ad2a1d32940aa760365": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "1281712f5da6432eb88400dbf41fa789": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_ef59932aec8247d5b818c6b580b5c3e7", "placeholder": "\u200b", "style": "IPY_MODEL_e2f4d3d92eeb4ad2a1d32940aa760365", "value": " 5/5 [00:02&lt;00:00,  1.91it/s]"}}, "fc11677064124cce8215d69956327813": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c62bd2cb42874a5ca50f0837f18a8af6": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_aafd2c14f8564a7c84bf3eac42a959a9", "IPY_MODEL_afffe6a31d7d42c69bd9a71ed512d216", "IPY_MODEL_1281712f5da6432eb88400dbf41fa789"], "layout": "IPY_MODEL_fc11677064124cce8215d69956327813"}}}, "version_major": 2, "version_minor": 0}
+{"state": {"4ed0ea92ca494c09a2d506f9896e5a97": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "28047864e01743f5988bd5d4d5f20d1a": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "2103f4cdd4024372bb9077830be982b7": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_4ed0ea92ca494c09a2d506f9896e5a97", "max": 5.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_28047864e01743f5988bd5d4d5f20d1a", "value": 5.0}}, "536f66e82d5e4448843ef02dd7e0010e": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "7f9c8f47f3084a8db68d17d1750acecf": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "69edc161a4a241d8b2e79db6febf0530": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_536f66e82d5e4448843ef02dd7e0010e", "placeholder": "\u200b", "style": "IPY_MODEL_7f9c8f47f3084a8db68d17d1750acecf", "value": "Simulation: 100%"}}, "ecb9c2c3045b42bea6d334ca74b1f75c": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "0645bfcf29584eeab66c5e46316171f3": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "8baf95817f724a37b848b70d1f71f35c": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_ecb9c2c3045b42bea6d334ca74b1f75c", "placeholder": "\u200b", "style": "IPY_MODEL_0645bfcf29584eeab66c5e46316171f3", "value": " 5/5 [00:03&lt;00:00,  1.66it/s]"}}, "9e51536c3a9c4f968a6bb8b1bdaaaf4c": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "7ef51e459f5a4ff7b2eea40387d6b97b": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_69edc161a4a241d8b2e79db6febf0530", "IPY_MODEL_2103f4cdd4024372bb9077830be982b7", "IPY_MODEL_8baf95817f724a37b848b70d1f71f35c"], "layout": "IPY_MODEL_9e51536c3a9c4f968a6bb8b1bdaaaf4c"}}}, "version_major": 2, "version_minor": 0}
 </script></div>
+</div>
 
 
               </div>
@@ -581,7 +873,7 @@ div.rendered_html tbody tr:hover {
               <div class='prev-next-bottom'>
                 
     <a class='left-prev' id="prev-link" href="distributions_notebook.html" title="previous page">Distributions</a>
-    <a class='right-next' id="next-link" href="api.html" title="next page">Episuite API</a>
+    <a class='right-next' id="next-link" href="symptom_survey.html" title="next page">COVID-19 World Survey Data API</a>
 
               </div>
               
@@ -599,7 +891,7 @@ div.rendered_html tbody tr:hover {
   <div class="container">
     <p>
           &copy; Copyright 2021, Christian S. Perone.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
     </p>
   </div>
 </footer>

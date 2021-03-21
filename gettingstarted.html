@@ -86,6 +86,12 @@
 </li>
 
 <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="bibliography.html">
+  Bibliography
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="license.html">
   License
  </a>
@@ -132,10 +138,13 @@
 <li class="toctree-l2"><a class="reference internal" href="durations_notebook.html">Durations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html">ICU - Admissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributions_notebook.html">Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU occupation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symptom_survey.html">COVID-19 World Survey Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mobility_facebook.html">Mobility: Facebook Movement Range Maps</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Episuite API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -166,12 +175,51 @@
                 
   <div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Episuite is a suite of tools for epidemiology in Python. It contains
+components to handle distributions, delays that can be used to
+model and simulate ICU occupation. Episuite also contains client
+for modern mobility APIs released in the past year due to the
+COVID-19 pandemic.</p>
+<p>Below you will find a series of tutorials explaining</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="durations_notebook.html">Durations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="icu_admissions_notebook.html">ICU - Admissions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributions_notebook.html">Distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="durations_notebook.html">Durations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="durations_notebook.html#Load-the-sample-data">Load the sample data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="durations_notebook.html#Build-the-durations-object">Build the durations object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="durations_notebook.html#Data-visualization">Data visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="icu_admissions_notebook.html">ICU - Admissions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html#Load-the-sample-data-and-aggregate-by-day">Load the sample data and aggregate by day</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html#Build-the-admissions-object">Build the admissions object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html#Check-for-data-consistency">Check for data consistency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html#Visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="distributions_notebook.html">Distributions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="distributions_notebook.html#Loading-sample-data">Loading sample data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributions_notebook.html#Build-a-bootstrap-distribution">Build a bootstrap distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributions_notebook.html#Sampling-from-the-distribution">Sampling from the distribution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU occupation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html#Preparing-admissions">Preparing admissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html#Durations-(length-of-stay)">Durations (length of stay)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html#Visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="symptom_survey.html">COVID-19 World Survey Data API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="symptom_survey.html#Available-countries-and-regions">Available countries and regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symptom_survey.html#Survey-dates-available">Survey dates available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symptom_survey.html#Fetching-survey-results">Fetching survey results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symptom_survey.html#Visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mobility_facebook.html">Mobility: Facebook Movement Range Maps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mobility_facebook.html#Load-Movement-Range-Maps-data">Load Movement Range Maps data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mobility_facebook.html#Visualization">Visualization</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -201,7 +249,7 @@
   <div class="container">
     <p>
           &copy; Copyright 2021, Christian S. Perone.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
     </p>
   </div>
 </footer>

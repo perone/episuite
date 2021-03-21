@@ -36,8 +36,8 @@
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="License" href="license.html" />
-    <link rel="prev" title="ICU - Simulating ICU dynamics" href="icu_simulation_notebook.html" />
+    <link rel="next" title="Bibliography" href="bibliography.html" />
+    <link rel="prev" title="Mobility: Facebook Movement Range Maps" href="mobility_facebook.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
   </head>
@@ -82,6 +82,12 @@
 <li class="toctree-l1 current active nav-item">
  <a class="current reference internal nav-link" href="#">
   Episuite API
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="bibliography.html">
+  Bibliography
  </a>
 </li>
 
@@ -131,12 +137,19 @@
 <li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Episuite API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-episuite"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite</span></code> – Main package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code> – Data handling and samples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-episuite.icu"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.icu</span></code> – Intensive Care Unit (ICU) tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-episuite.durations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.durations</span></code> – Durations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-episuite.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.distributions</span></code> – Distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-episuite.mobility"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility</span></code> – Mobility data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-episuite.mobility.facebook"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility.facebook</span></code> – Facebook Mobility data</a></li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -164,6 +177,16 @@
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#module-episuite.data">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       episuite.data
+      </span>
+     </code>
+     – Data handling and samples
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#module-episuite.icu">
      <code class="xref py py-mod docutils literal notranslate">
       <span class="pre">
@@ -171,6 +194,16 @@
       </span>
      </code>
      – Intensive Care Unit (ICU) tools
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#module-episuite.durations">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       episuite.durations
+      </span>
+     </code>
+     – Durations
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -182,6 +215,28 @@
      </code>
      – Distributions
     </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#module-episuite.mobility">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       episuite.mobility
+      </span>
+     </code>
+     – Mobility data
+    </a>
+    <ul class="visible nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#module-episuite.mobility.facebook">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         episuite.mobility.facebook
+        </span>
+       </code>
+       – Facebook Mobility data
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -206,6 +261,57 @@
 <h1>Episuite API<a class="headerlink" href="#episuite-api" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-episuite">
 <span id="episuite-main-package"></span><h2><a class="reference internal" href="#module-episuite" title="episuite"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite</span></code></a> – Main package<a class="headerlink" href="#module-episuite" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-episuite.data">
+<span id="episuite-data-data-handling-and-samples"></span><h3><a class="reference internal" href="#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code></a> – Data handling and samples<a class="headerlink" href="#module-episuite.data" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="episuite.data.admissions_sample">
+<code class="sig-prename descclassname"><span class="pre">episuite.data.</span></code><code class="sig-name descname"><span class="pre">admissions_sample</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/episuite/data.html#admissions_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.data.admissions_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample data for ICU hospitalization admissions. This data is based
+on COVID-19 outbreak in Porto Alegre/RS/Brazil. This dataset contains
+three columns that are described below.</p>
+<dl class="simple">
+<dt>DATE_START</dt><dd><p>When the patient enters in the ICU.</p>
+</dd>
+<dt>DATE_END</dt><dd><p>When the patient left the ICU by an outcome.</p>
+</dd>
+<dt>OUTCOME</dt><dd><p>Outcome when the patient left the ICU (DATE_END)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>sample data w/ admission</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="episuite.data.download_remote">
+<code class="sig-prename descclassname"><span class="pre">episuite.data.</span></code><code class="sig-name descname"><span class="pre">download_remote</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">BinaryIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/episuite/data.html#download_remote"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.data.download_remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will download data frmo a remote URL and
+will optionally show the progress.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – the url to download from</p></li>
+<li><p><strong>stream</strong> – buffered IO object</p></li>
+<li><p><strong>desc</strong> – progress bar description</p></li>
+<li><p><strong>show_progress</strong> – whether to show progress or not</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="episuite.data.get_cache_dir_file">
+<code class="sig-prename descclassname"><span class="pre">episuite.data.</span></code><code class="sig-name descname"><span class="pre">get_cache_dir_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pathlib.Path</span><a class="reference internal" href="_modules/episuite/data.html#get_cache_dir_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.data.get_cache_dir_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="episuite.data.load_from_cache">
+<code class="sig-prename descclassname"><span class="pre">episuite.data.</span></code><code class="sig-name descname"><span class="pre">load_from_cache</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pathlib.Path</span><a class="reference internal" href="_modules/episuite/data.html#load_from_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.data.load_from_cache" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="module-episuite.icu">
 <span id="episuite-icu-intensive-care-unit-icu-tools"></span><h3><a class="reference internal" href="#module-episuite.icu" title="episuite.icu"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.icu</span></code></a> – Intensive Care Unit (ICU) tools<a class="headerlink" href="#module-episuite.icu" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
@@ -213,7 +319,9 @@
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.icu.</span></code><code class="sig-name descname"><span class="pre">ICUAdmissions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_admissions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.series.Series</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUAdmissions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUAdmissions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class will wrap admissions (Series) and will
-provide utility methods to handle ICU admissions.</p>
+provide utility methods to handle ICU admissions. The series
+is sorted by the index in ascending manner. The series
+is also copied.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>s_admissions</strong> – a series with dates in the index
@@ -223,12 +331,18 @@ and admissions for each day.</p>
 <dl class="py method">
 <dt id="episuite.icu.ICUAdmissions.get_admissions_series">
 <code class="sig-name descname"><span class="pre">get_admissions_series</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.series.Series</span><a class="reference internal" href="_modules/episuite/icu.html#ICUAdmissions.get_admissions_series"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUAdmissions.get_admissions_series" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the internal admission series.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="episuite.icu.ICUAdmissions.sanity_check">
 <code class="sig-name descname"><span class="pre">sanity_check</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/episuite/icu.html#ICUAdmissions.sanity_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUAdmissions.sanity_check" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method will peform a check for the consistency of the
+data. It will check if there are duplicates and also if there
+are gaps between dates, which can be problematic when using
+for simulation and modelling. It will trigger an exception
+upon faliure.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -247,25 +361,61 @@ and admissions for each day.</p>
 <dt id="episuite.icu.ICUSimulation">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.icu.</span></code><code class="sig-name descname"><span class="pre">ICUSimulation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">admissions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#episuite.icu.ICUAdmissions" title="episuite.icu.ICUAdmissions"><span class="pre">episuite.icu.ICUAdmissions</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration_distribution</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#episuite.distributions.DurationDistribution" title="episuite.distributions.DurationDistribution"><span class="pre">episuite.distributions.DurationDistribution</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the main class for the simulation of ICU/beds occupancy
+based on observed admissions or predicted admission.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://cmmid.github.io/topics/covid19/ICU-projections.html">Forecasting critical care bed requirements for COVID-19 patients in England</a></dt><dd><p>This simulator is mainly based on this work by <span id="id1">Jombart <em>et al.</em> [<a class="reference internal" href="bibliography.html#id3">JNJ+20</a>]</span>.</p>
+</dd>
+<dt><a class="reference external" href="https://arxiv.org/abs/2007.10486">Analysis of the SARS-CoV-2 outbreak in Rio Grande do Sul / Brazil</a></dt><dd><p>This article <span id="id2">Perone [<a class="reference internal" href="bibliography.html#id4">Per20</a>]</span> used this simulator and describes how it works.</p>
+</dd>
+</dl>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>admissions</strong> – the admissions (observed or forecast)</p></li>
+<li><p><strong>duration_distribution</strong> – it can be a fitted distribution supporting
+the duration distribution or a empirical
+distribution.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="episuite.icu.ICUSimulation.get_admissions">
 <code class="sig-name descname"><span class="pre">get_admissions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#episuite.icu.ICUAdmissions" title="episuite.icu.ICUAdmissions"><span class="pre">episuite.icu.ICUAdmissions</span></a><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.get_admissions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.get_admissions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the admissions.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="episuite.icu.ICUSimulation.get_duration_distribution">
 <code class="sig-name descname"><span class="pre">get_duration_distribution</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#episuite.distributions.DurationDistribution" title="episuite.distributions.DurationDistribution"><span class="pre">episuite.distributions.DurationDistribution</span></a><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.get_duration_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.get_duration_distribution" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the duration distribution.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="episuite.icu.ICUSimulation.simulate">
-<code class="sig-name descname"><span class="pre">simulate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.simulate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname"><span class="pre">simulate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_workers</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#episuite.icu.ICUSimulationResults" title="episuite.icu.ICUSimulationResults"><span class="pre">episuite.icu.ICUSimulationResults</span></a><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will perform many rounds of simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iterations</strong> – number of simulation rounds to incorporate
+the uncertainty from the LoS distribution.</p></li>
+<li><p><strong>show_progress</strong> – show the progress of simulation</p></li>
+<li><p><strong>max_workers</strong> – the number of workers to use (processes), default
+to the number of cores in the machine.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="episuite.icu.ICUSimulation.simulation_round">
-<code class="sig-name descname"><span class="pre">simulation_round</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.simulation_round"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.simulation_round" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname"><span class="pre">simulation_round</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.series.Series</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulation.simulation_round"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulation.simulation_round" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will perform a single simulation round.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -273,20 +423,34 @@ and admissions for each day.</p>
 <dt id="episuite.icu.ICUSimulationResults">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.icu.</span></code><code class="sig-name descname"><span class="pre">ICUSimulationResults</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icu_simulation</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#episuite.icu.ICUSimulation" title="episuite.icu.ICUSimulation"><span class="pre">episuite.icu.ICUSimulation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_simulation</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class holds the results from many simulation rounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icu_simulation</strong> – the simulation instance that produced
+the results.</p></li>
+<li><p><strong>df_simulation</strong> – the results dataframe</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="episuite.icu.ICUSimulationResults.get_admissions">
 <code class="sig-name descname"><span class="pre">get_admissions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#episuite.icu.ICUAdmissions" title="episuite.icu.ICUAdmissions"><span class="pre">episuite.icu.ICUAdmissions</span></a><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResults.get_admissions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResults.get_admissions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the admissions used for simulation.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="episuite.icu.ICUSimulationResults.get_simulation_results">
 <code class="sig-name descname"><span class="pre">get_simulation_results</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResults.get_simulation_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResults.get_simulation_results" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the dataframe with the simulation results.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="episuite.icu.ICUSimulationResults.hdi">
-<code class="sig-name descname"><span class="pre">hdi</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResults.hdi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResults.hdi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname"><span class="pre">hdi</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResults.hdi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResults.hdi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dataframe with computed HPD (high density interval),
+mean and median values.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -296,7 +460,64 @@ and admissions for each day.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt id="episuite.icu.ICUSimulationResultsPlot.lineplot">
-<code class="sig-name descname"><span class="pre">lineplot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResultsPlot.lineplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResultsPlot.lineplot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">lineplot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="_modules/episuite/icu.html#ICUSimulationResultsPlot.lineplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.icu.ICUSimulationResultsPlot.lineplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the simulation results and admissions used.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-episuite.durations">
+<span id="episuite-durations-durations"></span><h3><a class="reference internal" href="#module-episuite.durations" title="episuite.durations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.durations</span></code></a> – Durations<a class="headerlink" href="#module-episuite.durations" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="episuite.durations.Durations">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.durations.</span></code><code class="sig-name descname"><span class="pre">Durations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_durations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_start</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'DATE_START'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_end</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'DATE_END'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_gt</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/durations.html#Durations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.durations.Durations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="episuite.durations.Durations.COLUMN_STAY_DURATION">
+<code class="sig-name descname"><span class="pre">COLUMN_STAY_DURATION</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'__EPISUITE_STAY_DURATION'</span></em><a class="headerlink" href="#episuite.durations.Durations.COLUMN_STAY_DURATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.durations.Durations.get_bootstrap">
+<code class="sig-name descname"><span class="pre">get_bootstrap</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#episuite.distributions.EmpiricalBootstrap" title="episuite.distributions.EmpiricalBootstrap"><span class="pre">episuite.distributions.EmpiricalBootstrap</span></a><a class="reference internal" href="_modules/episuite/durations.html#Durations.get_bootstrap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.durations.Durations.get_bootstrap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.durations.Durations.get_dataframe">
+<code class="sig-name descname"><span class="pre">get_dataframe</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/episuite/durations.html#Durations.get_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.durations.Durations.get_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.durations.Durations.get_stay_distribution">
+<code class="sig-name descname"><span class="pre">get_stay_distribution</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="reference internal" href="_modules/episuite/durations.html#Durations.get_stay_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.durations.Durations.get_stay_distribution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="episuite.durations.DurationsPlot">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.durations.</span></code><code class="sig-name descname"><span class="pre">DurationsPlot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#episuite.durations.Durations" title="episuite.durations.Durations"><span class="pre">episuite.durations.Durations</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/durations.html#DurationsPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.durations.DurationsPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Makes plots for the durations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>duration</strong> – the duration</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="episuite.durations.DurationsPlot.density">
+<code class="sig-name descname"><span class="pre">density</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="_modules/episuite/durations.html#DurationsPlot.density"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.durations.DurationsPlot.density" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.durations.DurationsPlot.histogram">
+<code class="sig-name descname"><span class="pre">histogram</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="_modules/episuite/durations.html#DurationsPlot.histogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.durations.DurationsPlot.histogram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.durations.DurationsPlot.timeplot">
+<code class="sig-name descname"><span class="pre">timeplot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locator</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'month'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="_modules/episuite/durations.html#DurationsPlot.timeplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.durations.DurationsPlot.timeplot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -304,38 +525,6 @@ and admissions for each day.</p>
 </div>
 <div class="section" id="module-episuite.distributions">
 <span id="episuite-distributions-distributions"></span><h3><a class="reference internal" href="#module-episuite.distributions" title="episuite.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.distributions</span></code></a> – Distributions<a class="headerlink" href="#module-episuite.distributions" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
-<dt id="episuite.distributions.DurationBootstrap">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.distributions.</span></code><code class="sig-name descname"><span class="pre">DurationBootstrap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">durations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/distributions.html#DurationBootstrap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.DurationBootstrap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#episuite.distributions.DurationDistribution" title="episuite.distributions.DurationDistribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">episuite.distributions.DurationDistribution</span></code></a></p>
-<p>This distribution will bootstrap a specified list
-of durations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>replace</strong> – if sample w/ replacement or not</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt id="episuite.distributions.DurationBootstrap.from_durations">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_durations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">episuite.durations.Durations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/distributions.html#DurationBootstrap.from_durations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.DurationBootstrap.from_durations" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="episuite.distributions.DurationBootstrap.sample">
-<code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="reference internal" href="_modules/episuite/distributions.html#DurationBootstrap.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.DurationBootstrap.sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sample from the duration distribution.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>size</strong> – amount of samples to draw.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>samples from the distribution</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py class">
 <dt id="episuite.distributions.DurationDistribution">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.distributions.</span></code><code class="sig-name descname"><span class="pre">DurationDistribution</span></code><a class="reference internal" href="_modules/episuite/distributions.html#DurationDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.DurationDistribution" title="Permalink to this definition">¶</a></dt>
@@ -357,6 +546,175 @@ of durations.</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt id="episuite.distributions.EmpiricalBootstrap">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.distributions.</span></code><code class="sig-name descname"><span class="pre">EmpiricalBootstrap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/distributions.html#EmpiricalBootstrap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.EmpiricalBootstrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#episuite.distributions.DurationDistribution" title="episuite.distributions.DurationDistribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">episuite.distributions.DurationDistribution</span></code></a></p>
+<p>This distribution will bootstrap from an empirical
+distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>replace</strong> – if sample w/ replacement or not</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="episuite.distributions.EmpiricalBootstrap.sample">
+<code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="reference internal" href="_modules/episuite/distributions.html#EmpiricalBootstrap.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.distributions.EmpiricalBootstrap.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample from the duration distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> – amount of samples to draw.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>samples from the distribution</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-episuite.mobility">
+<span id="episuite-mobility-mobility-data"></span><h3><a class="reference internal" href="#module-episuite.mobility" title="episuite.mobility"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility</span></code></a> – Mobility data<a class="headerlink" href="#module-episuite.mobility" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-episuite.mobility.facebook">
+<span id="episuite-mobility-facebook-facebook-mobility-data"></span><h4><a class="reference internal" href="#module-episuite.mobility.facebook" title="episuite.mobility.facebook"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility.facebook</span></code></a> – Facebook Mobility data<a class="headerlink" href="#module-episuite.mobility.facebook" title="Permalink to this headline">¶</a></h4>
+<dl class="py class">
+<dt id="episuite.mobility.facebook.FacebookMovementRange">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.mobility.facebook.</span></code><code class="sig-name descname"><span class="pre">FacebookMovementRange</span></code><a class="reference internal" href="_modules/episuite/mobility/facebook.html#FacebookMovementRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.mobility.facebook.FacebookMovementRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is a client API for Facebook Movement Range data.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Please look at <a class="reference external" href="https://data.humdata.org/dataset/movement-range-maps">HDX Movement Range Maps</a>
+for more information about this data.</p>
+</div>
+<dl class="py attribute">
+<dt id="episuite.mobility.facebook.FacebookMovementRange.MAIN_RESOURCE_URL">
+<code class="sig-name descname"><span class="pre">MAIN_RESOURCE_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://data.humdata.org/dataset/movement-range-maps'</span></em><a class="headerlink" href="#episuite.mobility.facebook.FacebookMovementRange.MAIN_RESOURCE_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="episuite.mobility.facebook.FacebookMovementRange.load_movement_range">
+<code class="sig-name descname"><span class="pre">load_movement_range</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">country_code</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/episuite/mobility/facebook.html#FacebookMovementRange.load_movement_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.mobility.facebook.FacebookMovementRange.load_movement_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will load the movement range data and optionally
+filter for the specified country code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>country_code</strong> – country code (i.e. ‘BRA’ for Brazil)</p></li>
+<li><p><strong>show_progress</strong> – show download progress</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a DataFrame with the movement range dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="episuite.mobility.facebook.FacebookSymptomSurvey">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.mobility.facebook.</span></code><code class="sig-name descname"><span class="pre">FacebookSymptomSurvey</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'https://covidmap.umd.edu/api'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/mobility/facebook.html#FacebookSymptomSurvey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.mobility.facebook.FacebookSymptomSurvey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is a class implementing a client for the COVID-19 World Survey Data API
+from Facebook and the University of Maryland.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Please see <span id="id3">Fan <em>et al.</em> [<a class="reference internal" href="bibliography.html#id2">FLS+20</a>]</span> for more information
+about the COVID-19 World Survey Data API.</p>
+</div>
+<dl class="py method">
+<dt id="episuite.mobility.facebook.FacebookSymptomSurvey.get_survey_country_region">
+<code class="sig-name descname"><span class="pre">get_survey_country_region</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/episuite/mobility/facebook.html#FacebookSymptomSurvey.get_survey_country_region"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.mobility.facebook.FacebookSymptomSurvey.get_survey_country_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the survey country/region list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="episuite.mobility.facebook.FacebookSymptomSurvey.get_survey_date_avail">
+<code class="sig-name descname"><span class="pre">get_survey_date_avail</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">country_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/episuite/mobility/facebook.html#FacebookSymptomSurvey.get_survey_date_avail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.mobility.facebook.FacebookSymptomSurvey.get_survey_date_avail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all dates for survey responses for a place.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>country_name</strong> – the name of the country</p></li>
+<li><p><strong>region_name</strong> – name of the region.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="episuite.mobility.facebook.FacebookSymptomSurvey.get_survey_range">
+<code class="sig-name descname"><span class="pre">get_survey_range</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">country_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'daily'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicator</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'covid'</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/episuite/mobility/facebook.html#FacebookSymptomSurvey.get_survey_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.mobility.facebook.FacebookSymptomSurvey.get_survey_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve data for a particular indicator. This method
+will return a DataFrame with pre-computed confidence
+intervals (percent_cli_95_upper_ci/percent_cli_95_lower_ci).</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Please see <span id="id4">Fan <em>et al.</em> [<a class="reference internal" href="bibliography.html#id2">FLS+20</a>]</span> for more information
+about the COVID-19 World Survey Data API.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>country_name</strong> – the name of the country</p></li>
+<li><p><strong>region_name</strong> – name of the region.</p></li>
+<li><p><strong>start_date</strong> – start date in the format (YYYYMMDD),
+example: 20200921.</p></li>
+<li><p><strong>end_date</strong> – start date in the format (YYYYMMDD),
+example: 20200921.</p></li>
+<li><p><strong>type</strong> – can be “daily” or “smoothed”</p></li>
+<li><p><strong>indicator</strong> – can be “covid”, “mask” or “vaccine_acpt”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="episuite.mobility.facebook.FacebookSymptomSurvey.plot_region_percent_cli">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">plot_region_percent_cli</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_survey_range</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locator</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'month'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="_modules/episuite/mobility/facebook.html#FacebookSymptomSurvey.plot_region_percent_cli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.mobility.facebook.FacebookSymptomSurvey.plot_region_percent_cli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the CLI (Covid-like illness) from the results
+of a region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_survey_range</strong> – the results from the survey</p></li>
+<li><p><strong>locator</strong> – can be “month” or “day”, to define the
+location of ticks in the plot for the dates</p></li>
+<li><p><strong>interval</strong> – interval to show the date labels in the plot</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="episuite.mobility.facebook.MovementRangeResource">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">episuite.mobility.facebook.</span></code><code class="sig-name descname"><span class="pre">MovementRangeResource</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/episuite/mobility/facebook.html#MovementRangeResource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.mobility.facebook.MovementRangeResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="py attribute">
+<dt id="episuite.mobility.facebook.MovementRangeResource.date">
+<code class="sig-name descname"><span class="pre">date</span></code><em class="property"><span class="pre">:</span> <span class="pre">datetime.date</span></em><a class="headerlink" href="#episuite.mobility.facebook.MovementRangeResource.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="episuite.mobility.facebook.MovementRangeResource.filename">
+<code class="sig-name descname"><span class="pre">filename</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#episuite.mobility.facebook.MovementRangeResource.filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="episuite.mobility.facebook.MovementRangeResource.url">
+<code class="sig-name descname"><span class="pre">url</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#episuite.mobility.facebook.MovementRangeResource.url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 </div>
 </div>
@@ -367,8 +725,8 @@ of durations.</p>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="icu_simulation_notebook.html" title="previous page">ICU - Simulating ICU dynamics</a>
-    <a class='right-next' id="next-link" href="license.html" title="next page">License</a>
+    <a class='left-prev' id="prev-link" href="mobility_facebook.html" title="previous page">Mobility: Facebook Movement Range Maps</a>
+    <a class='right-next' id="next-link" href="bibliography.html" title="next page">Bibliography</a>
 
               </div>
               
@@ -386,7 +744,7 @@ of durations.</p>
   <div class="container">
     <p>
           &copy; Copyright 2021, Christian S. Perone.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
     </p>
   </div>
 </footer>

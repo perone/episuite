@@ -1,0 +1,196 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    "COVID-19 World Survey Data API\n",
+    "###########################################################################\n",
+    "This section describes how to use the COVID-19 World Survey Data API client\n",
+    "from Episuite. The main class used to download and parse the Facebook\n",
+    "Symptom survey data is the :class:`~episuite.mobility.facebook.FacebookSymptomSurvey`.\n",
+    "\n",
+    ".. seealso::\n",
+    "\n",
+    "   `COVID-19 World Symptom Survey Data API, 2020 <https://gisumd.github.io/COVID-19-API-Documentation/docs/home.html>`_\n",
+    "      Documentation of the API, please see :cite:t:`Maryland2021` also.\n",
+    "\n",
+    "   Module :mod:`episuite.mobility.facebook`\n",
+    "      Documentation of the :py:mod:`episuite.mobility.facebook` module."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from matplotlib import pyplot as plt\n",
+    "from episuite.mobility import facebook"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Available countries and regions\n",
+    "The first API we will use here is to check the countries and regions available in the dataset."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "client = facebook.FacebookSymptomSurvey()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "country_region = client.get_survey_country_region()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "country_region.head(8)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Lets filter for some states in Brazil\n",
+    "brazil_regions = country_region.query(\"country == 'Brazil'\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "brazil_regions.tail(8)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Survey dates available\n",
+    "The next API is to get the dates available for a region."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "result = client.get_survey_date_avail(\"Brazil\", \"Rio Grande do Sul\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "result.tail()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can see above the last available dates from the symptom survey."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Fetching survey results\n",
+    "Let's fetch now some results from a date range."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "result = client.get_survey_range(\"Brazil\", \"Rio Grande do Sul\",\n",
+    "                                 \"20210101\", \"20210318\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "result.tail()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Visualization"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = plt.figure(figsize=(14, 4))\n",
+    "client.plot_region_percent_cli(result, locator=\"day\")\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can see here the jump in the weighted percentage of COVID-like illness in Rio Grande do Sul/Brazil coinciding with a surge of hospitalizations that happened after February. We can also see the slow decay at the end, a good evidence of less people getting sick at home."
+   ]
+  }
+ ],
+ "metadata": {
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

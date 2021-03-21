@@ -36,7 +36,7 @@
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ICU - Simulating ICU dynamics" href="icu_simulation_notebook.html" />
+    <link rel="next" title="ICU - Simulating ICU occupation" href="icu_simulation_notebook.html" />
     <link rel="prev" title="ICU - Admissions" href="icu_admissions_notebook.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -86,6 +86,12 @@
 </li>
 
 <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="bibliography.html">
+  Bibliography
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="license.html">
   License
  </a>
@@ -131,11 +137,19 @@
 <li class="toctree-l1 current"><a class="reference internal" href="gettingstarted.html">Getting Started</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="durations_notebook.html">Durations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html">ICU - Admissions</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU dynamics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Distributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Loading-sample-data">Loading sample data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Build-a-bootstrap-distribution">Build a bootstrap distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Sampling-from-the-distribution">Sampling from the distribution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU occupation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="symptom_survey.html">COVID-19 World Survey Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mobility_facebook.html">Mobility: Facebook Movement Range Maps</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Episuite API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -146,9 +160,29 @@
           
           <div class="d-none d-xl-block col-xl-2 bd-toc">
               
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Loading-sample-data">
+   Loading sample data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Build-a-bootstrap-distribution">
+   Build a bootstrap distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Sampling-from-the-distribution">
+   Sampling from the distribution
+  </a>
+ </li>
+</ul>
+
 </nav>
 
 
@@ -414,16 +448,33 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Distributions">
 <h1>Distributions<a class="headerlink" href="#Distributions" title="Permalink to this headline">¶</a></h1>
-<p>This section shows how to use the <code class="docutils literal notranslate"><span class="pre">Distributions</span></code> functionality of Episuite.</p>
+<p>This section shows how to use the distributions from Episuite.
+Distributions are one important component for simulation and modelling, in
+this example we will show how to create a bootstrap distribution from
+an empirical distribution of durations using the
+<a class="reference internal" href="api.html#episuite.distributions.EmpiricalBootstrap" title="episuite.distributions.EmpiricalBootstrap"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalBootstrap</span></code></a> distribution.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the example below, we will use a sample dataset that comes embedded
+in Episuite with real data from the SARS-CoV-2 outbreak in south of Brazil.
+This dataset can be accessed using the <a class="reference internal" href="api.html#episuite.data.admissions_sample" title="episuite.data.admissions_sample"><code class="xref py py-meth docutils literal notranslate"><span class="pre">admissions_sample()</span></code></a>
+function from the <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data</span></code></a> module.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt>Module <a class="reference internal" href="api.html#module-episuite.distributions" title="episuite.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.distributions</span></code></a></dt><dd><p>Documentation of the <a class="reference internal" href="api.html#module-episuite.distributions" title="episuite.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.distributions</span></code></a> module.</p>
+</dd>
+<dt>Module <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code></a></dt><dd><p>Documentation of the <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code></a> module.</p>
+</dd>
+</dl>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">episuite</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
 <span class="kn">from</span> <span class="nn">episuite</span> <span class="kn">import</span> <span class="n">durations</span>
@@ -432,6 +483,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="section" id="Loading-sample-data">
+<h2>Loading sample data<a class="headerlink" href="#Loading-sample-data" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -522,22 +575,43 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="Build-a-bootstrap-distribution">
+<h2>Build a bootstrap distribution<a class="headerlink" href="#Build-a-bootstrap-distribution" title="Permalink to this headline">¶</a></h2>
+<p>You can build a <code class="docutils literal notranslate"><span class="pre">EmpiricalBootstrap</span></code> distribution by constructing it using the durations distribution, like in the example below:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">duration_bootstrap</span> <span class="o">=</span> <span class="n">distributions</span><span class="o">.</span><span class="n">DurationBootstrap</span><span class="o">.</span><span class="n">from_durations</span><span class="p">(</span><span class="n">dur</span><span class="p">)</span>
+<span></span><span class="n">duration_distribution</span> <span class="o">=</span> <span class="n">dur</span><span class="o">.</span><span class="n">get_stay_distribution</span><span class="p">()</span>
+<span class="n">duration_bootstrap</span> <span class="o">=</span> <span class="n">distributions</span><span class="o">.</span><span class="n">EmpiricalBootstrap</span><span class="p">(</span><span class="n">duration_distribution</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
+<p>Or you can use the method <code class="docutils literal notranslate"><span class="pre">get_bootstrap()</span></code> from the <code class="docutils literal notranslate"><span class="pre">Durations</span></code> class that will have the same effect:</p>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">duration_bootstrap</span><span class="o">.</span><span class="n">sample</span><span class="p">(),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">cut</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span></span><span class="n">duration_bootstrap</span> <span class="o">=</span> <span class="n">dur</span><span class="o">.</span><span class="n">get_bootstrap</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Sampling-from-the-distribution">
+<h2>Sampling from the distribution<a class="headerlink" href="#Sampling-from-the-distribution" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">duration_bootstrap</span><span class="o">.</span><span class="n">sample</span><span class="p">(),</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">cut</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -547,7 +621,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/distributions_notebook_6_0.svg" src="_images/distributions_notebook_6_0.svg" /></div>
+<img alt="_images/distributions_notebook_11_0.svg" src="_images/distributions_notebook_11_0.svg" /></div>
+</div>
 </div>
 </div>
 
@@ -558,7 +633,7 @@ div.rendered_html tbody tr:hover {
               <div class='prev-next-bottom'>
                 
     <a class='left-prev' id="prev-link" href="icu_admissions_notebook.html" title="previous page">ICU - Admissions</a>
-    <a class='right-next' id="next-link" href="icu_simulation_notebook.html" title="next page">ICU - Simulating ICU dynamics</a>
+    <a class='right-next' id="next-link" href="icu_simulation_notebook.html" title="next page">ICU - Simulating ICU occupation</a>
 
               </div>
               
@@ -576,7 +651,7 @@ div.rendered_html tbody tr:hover {
   <div class="container">
     <p>
           &copy; Copyright 2021, Christian S. Perone.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
     </p>
   </div>
 </footer>

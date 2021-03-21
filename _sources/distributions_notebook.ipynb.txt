@@ -1,12 +1,32 @@
 {
  "cells": [
   {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
    "source": [
-    "# Distributions\n",
-    "This section shows how to use the `Distributions` functionality of Episuite."
-   ],
-   "cell_type": "markdown",
-   "metadata": {}
+    "Distributions\n",
+    "###########################################################################\n",
+    "This section shows how to use the distributions from Episuite.\n",
+    "Distributions are one important component for simulation and modelling, in\n",
+    "this example we will show how to create a bootstrap distribution from\n",
+    "an empirical distribution of durations using the\n",
+    ":class:`~episuite.distributions.EmpiricalBootstrap` distribution.\n",
+    "\n",
+    ".. note:: In the example below, we will use a sample dataset that comes embedded\n",
+    "          in Episuite with real data from the SARS-CoV-2 outbreak in south of Brazil.\n",
+    "          This dataset can be accessed using the :meth:`~episuite.data.admissions_sample`\n",
+    "          function from the :mod:`~episuite.data` module.\n",
+    "\n",
+    ".. seealso::\n",
+    "\n",
+    "   Module :mod:`episuite.distributions`\n",
+    "      Documentation of the :py:mod:`episuite.distributions` module.\n",
+    "      \n",
+    "   Module :mod:`episuite.data`\n",
+    "      Documentation of the :py:mod:`episuite.data` module.      "
+   ]
   },
   {
    "cell_type": "code",
@@ -14,15 +34,19 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "import pandas as pd\n",
-    "import numpy as np\n",
-    "import episuite\n",
     "from matplotlib import pyplot as plt\n",
     "import seaborn as sns\n",
     "\n",
     "from episuite import durations\n",
     "from episuite import distributions\n",
     "from episuite import data"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Loading sample data"
    ]
   },
   {
@@ -53,12 +77,11 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": null,
+   "cell_type": "markdown",
    "metadata": {},
-   "outputs": [],
    "source": [
-    "duration_bootstrap = distributions.DurationBootstrap.from_durations(dur)"
+    "### Build a bootstrap distribution\n",
+    "You can build a `EmpiricalBootstrap` distribution by constructing it using the durations distribution, like in the example below:"
    ]
   },
   {
@@ -67,14 +90,51 @@
    "metadata": {},
    "outputs": [],
    "source": [
+    "duration_distribution = dur.get_stay_distribution()\n",
+    "duration_bootstrap = distributions.EmpiricalBootstrap(duration_distribution)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Or you can use the method `get_bootstrap()` from the `Durations` class that will have the same effect:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "duration_bootstrap = dur.get_bootstrap()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Sampling from the distribution"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = plt.figure(figsize=(10, 6))\n",
     "for i in range(100):\n",
-    "    sns.kdeplot(duration_bootstrap.sample(), alpha=0.05, lw=0.5, cut=0)\n",
+    "    sns.kdeplot(duration_bootstrap.sample(),\n",
+    "                alpha=0.01, lw=0.2, cut=0,\n",
+    "                color=\"green\")\n",
     "plt.xlim(0, 100)\n",
     "plt.show()"
    ]
   }
  ],
  "metadata": {
+  "celltoolbar": "Raw Cell Format",
   "kernelspec": {
    "display_name": "Python 3",
    "language": "python",
@@ -90,7 +150,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.8.5-final"
+   "version": "3.8.5"
   }
  },
  "nbformat": 4,

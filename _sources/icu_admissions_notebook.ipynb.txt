@@ -1,12 +1,30 @@
 {
  "cells": [
   {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
    "source": [
-    "# ICU - Admissions\n",
-    "This section shows how to use the `icu` functionality of Episuite."
-   ],
-   "cell_type": "markdown",
-   "metadata": {}
+    "ICU - Admissions\n",
+    "###########################################################################\n",
+    "This section shows how to use the admissions functionality of Episuite. \n",
+    "The class :class:`~episuite.icu.ICUAdmissions` holds a admission series\n",
+    "that is indexed by day and number of admissions on that dat.\n",
+    "\n",
+    ".. note:: In the example below, we will use a sample dataset that comes embedded\n",
+    "          in Episuite with real data from the SARS-CoV-2 outbreak in south of Brazil.\n",
+    "          This dataset can be accessed using the :meth:`~episuite.data.admissions_sample`\n",
+    "          function from the :mod:`~episuite.data` module.\n",
+    "\n",
+    ".. seealso::\n",
+    "\n",
+    "   Module :mod:`episuite.icu`\n",
+    "      Documentation of the :py:mod:`episuite.icu` module.\n",
+    "      \n",
+    "   Module :mod:`episuite.data`\n",
+    "      Documentation of the :py:mod:`episuite.data` module.      "
+   ]
   },
   {
    "cell_type": "code",
@@ -14,13 +32,17 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "import pandas as pd\n",
-    "import numpy as np\n",
-    "import episuite\n",
     "from matplotlib import pyplot as plt\n",
-    "\n",
     "from episuite.icu import ICUAdmissions\n",
     "from episuite import data"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Load the sample data and aggregate by day\n",
+    "First we need to load a sample dataset."
    ]
   },
   {
@@ -56,6 +78,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
+    "# Filter for only RECOVERY or DEATH outcomes\n",
     "sample_data = sample_data[sample_data[\"OUTCOME\"].isin([\"RECOVERY\", \"DEATH\"])]"
    ]
   },
@@ -65,6 +88,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
+    "# Build an aggregation by day\n",
     "sample_data_admissions = sample_data.groupby(\"DATE_START\").size().sort_index()"
    ]
   },
@@ -74,6 +98,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
+    "# Resample the DataFrame per day and fill dates without admissions with zeros\n",
     "sample_data_admissions = sample_data_admissions.resample(\"D\").sum().fillna(0)"
    ]
   },
@@ -84,6 +109,21 @@
    "outputs": [],
    "source": [
     "sample_data_admissions.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As you can see, we now have a series of admissions per day indexed by **DATE_START**."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Build the admissions object\n",
+    "Here we are going to build the admissions object. This class accepts any series, therefore it can be reused for other admissions such as regular hospitalizations and not only ICU."
    ]
   },
   {
@@ -105,12 +145,27 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Check for data consistency\n",
+    "One of the major difficulties when dealing with real data is that it often comes with some issues such as duplicated dates, admissions with gaps, non-monotonicity, etc. This method below called `sanity_check()` will check for these issues and raise an exception in case of failure."
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
     "admissions.sanity_check()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Visualization"
    ]
   },
   {
@@ -123,9 +178,17 @@
     "admissions.plot.bar()\n",
     "plt.show()"
    ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now that we have the admissions, we can proceed by using it for simulation or modelling purposes."
+   ]
   }
  ],
  "metadata": {
+  "celltoolbar": "Raw Cell Format",
   "kernelspec": {
    "display_name": "Python 3",
    "language": "python",
@@ -141,7 +204,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.8.5-final"
+   "version": "3.8.5"
   }
  },
  "nbformat": 4,
