@@ -1,9 +1,6 @@
-from typing import Any, Optional
+from typing import Optional
 
 import pandas as pd
-import seaborn as sns
-from matplotlib import dates as mdates
-from matplotlib import pyplot as plt
 
 from episuite import data
 
