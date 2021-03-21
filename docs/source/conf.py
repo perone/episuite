@@ -23,7 +23,7 @@ copyright = '2021, Christian S. Perone'
 author = 'Christian S. Perone'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = '0.3.0'
 
 
 # -- General configuration ---------------------------------------------------
