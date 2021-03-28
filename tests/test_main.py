@@ -1,9 +1,8 @@
-import unittest
-
 import episuite
 
 
-class TestMain(unittest.TestCase):
+class TestMain:
     def test_one(self) -> None:
-        _ = episuite.__version__
-        self.assertTrue(1 == 1)
+        assert episuite.__version__ is not None
+        assert episuite.__author__ is not None
+        assert episuite.__appname__ is not None
