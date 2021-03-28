@@ -1,12 +1,12 @@
-import pytest
 import numpyro
-numpyro.set_host_device_count(2)
-from episuite import prevalence
+import pytest
 
-from numpyro.infer import init_to_feasible
+numpyro.set_host_device_count(2)
 from jax import random
 #import arviz as az
-from numpyro.infer import MCMC, NUTS
+from numpyro.infer import MCMC, NUTS, init_to_feasible
+
+from episuite import prevalence
 
 
 class TestTruePrevalenceModel:

@@ -36,6 +36,13 @@ Episuite API
    :undoc-members:
    :show-inheritance:
 
+:mod:`episuite.prevalence` -- Prevalence models
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. automodule:: episuite.prevalence
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 :mod:`episuite.mobility` -- Mobility data
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. automodule:: episuite.mobility

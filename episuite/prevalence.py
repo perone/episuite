@@ -1,7 +1,7 @@
 from typing import Any
+
 import numpyro
 import numpyro.distributions as dist
-
 from numpyro.distributions import Distribution
 
 
@@ -35,8 +35,8 @@ def apparent_prevalence_model(x_se: int, n_se: int,
         `Estimating SARS-CoV-2 seroprevalence and epidemiological parameters with uncertainty from serological surveys <https://www.medrxiv.org/content/10.1101/2020.04.15.20067066v2>`_
             This is mostly based on the work :cite:t:`Larremore2020`.
 
-        `Analysis of the SARS-CoV-2 outbreak in Rio Grande do Sul / Brazil <https://arxiv.org/abs/2007.10486>`_
-            This article :cite:t:`perone2020analysis` used this simulator and describes how it works.
+        `Bayesian modelling for COVID-19 seroprevalence studies <https://blog.christianperone.com/2020/06/talk-bayesian-modelling-for-covid-19-seroprevalence-studies/>`_
+            This is a talk that uses the same models implemented in Episuite.
 
     :param x_se: sensitivity parameter (i.e. if there was 33 positive samples, and
                  27 were detected, this parameter is 27).
@@ -50,7 +50,7 @@ def apparent_prevalence_model(x_se: int, n_se: int,
     :param obs_total: the total of observed samples
     :param true_p_prior: it can be any numpyro distribution to use as prior
                          for the true prevalence (default to a flat Beta prior)
-    """
+    """  # noqa: E501
     true_p = numpyro.sample("true_p", true_p_prior)
     se_p = numpyro.sample("se_p", dist.Beta(x_se + 1, n_se - x_se + 1))
     sp_p = numpyro.sample("sp_p", dist.Beta(x_sp + 1, n_sp - x_sp + 1))
