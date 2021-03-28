@@ -7,6 +7,8 @@ Release v.0.3.0 `(to be defined)`
 -------------------------------------------------------------------------------
     * Added Google Global Mobility reports support;
     * Cache invalidation option for downloads;
+    * Adding bayesian prevalence models (true prevalence, apparent prevalence);
+    * Changes in dependencies (pymc3 -> numpyro + jax);
 
 Release v.0.2.0 `(21 Mar 2021)`
 -------------------------------------------------------------------------------
