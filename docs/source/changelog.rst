@@ -3,11 +3,12 @@ Changelog
 In this section you'll find information about what's new in the newer
 releases of the project.
 
-Release v.0.3.0 `(to be defined)`
+Release v.0.3.0 `(29 Mar 2021)`
 -------------------------------------------------------------------------------
     * Added Google Global Mobility reports support;
     * Cache invalidation option for downloads;
-    * Adding bayesian prevalence models (true prevalence, apparent prevalence);
+    * Added bayesian prevalence models (true prevalence, apparent prevalence);
+    * Added a notebook with a tutorial for prevalence estimation;
     * Changes in dependencies (pymc3 -> numpyro + jax);
 
 Release v.0.2.0 `(21 Mar 2021)`
