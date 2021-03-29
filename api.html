@@ -8,7 +8,7 @@
     <title>Episuite API &#8212; Episuite</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.101715efdecc9b59cb6e1ddfa685c31f.css" rel="stylesheet" />
+  <link href="_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.d8bbf5861d671d414e1a.js">
+  <link rel="preload" as="script" href="_static/js/index.1e043a052b0af929e4d8.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Bibliography" href="bibliography.html" />
-    <link rel="prev" title="Mobility: Facebook Movement Range Maps" href="mobility_facebook.html" />
+    <link rel="prev" title="Mobility: Google COVID-19 Community Mobility Reports" href="mobility_google.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
   </head>
@@ -141,6 +141,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-episuite.icu"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.icu</span></code> – Intensive Care Unit (ICU) tools</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-episuite.durations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.durations</span></code> – Durations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-episuite.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.distributions</span></code> – Distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-episuite.prevalence"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.prevalence</span></code> – Prevalence models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-episuite.mobility"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility</span></code> – Mobility data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-episuite.mobility.facebook"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility.facebook</span></code> – Facebook Mobility data</a></li>
 </ul>
@@ -214,6 +215,16 @@
       </span>
      </code>
      – Distributions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#module-episuite.prevalence">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       episuite.prevalence
+      </span>
+     </code>
+     – Prevalence models
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -308,7 +319,7 @@ will optionally show the progress.</p>
 
 <dl class="py function">
 <dt id="episuite.data.load_from_cache">
-<code class="sig-prename descclassname"><span class="pre">episuite.data.</span></code><code class="sig-name descname"><span class="pre">load_from_cache</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pathlib.Path</span><a class="reference internal" href="_modules/episuite/data.html#load_from_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.data.load_from_cache" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">episuite.data.</span></code><code class="sig-name descname"><span class="pre">load_from_cache</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invalidate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pathlib.Path</span><a class="reference internal" href="_modules/episuite/data.html#load_from_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.data.load_from_cache" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -574,6 +585,62 @@ distribution.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-episuite.prevalence">
+<span id="episuite-prevalence-prevalence-models"></span><h3><a class="reference internal" href="#module-episuite.prevalence" title="episuite.prevalence"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.prevalence</span></code></a> – Prevalence models<a class="headerlink" href="#module-episuite.prevalence" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="episuite.prevalence.apparent_prevalence_model">
+<code class="sig-prename descclassname"><span class="pre">episuite.prevalence.</span></code><code class="sig-name descname"><span class="pre">apparent_prevalence_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x_se:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">n_se:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">x_sp:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">n_sp:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">obs_total:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">obs_positive:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">true_p_prior:</span> <span class="pre">numpyro.distributions.distribution.Distribution</span> <span class="pre">=</span> <span class="pre">&lt;numpyro.distributions.continuous.Beta</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="_modules/episuite/prevalence.html#apparent_prevalence_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.prevalence.apparent_prevalence_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a more realistic model that takes into consideration a imperfect
+testing validation, and uses the Rogan-Gladen estimator to model the observed
+prevalence as an apparent prevalence.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://www.medrxiv.org/content/10.1101/2020.04.15.20067066v2">Estimating SARS-CoV-2 seroprevalence and epidemiological parameters with uncertainty from serological surveys</a></dt><dd><p>This is mostly based on the work <span id="id3">Larremore <em>et al.</em> [<a class="reference internal" href="bibliography.html#id5">LFB+20</a>]</span>.</p>
+</dd>
+<dt><a class="reference external" href="https://blog.christianperone.com/2020/06/talk-bayesian-modelling-for-covid-19-seroprevalence-studies/">Bayesian modelling for COVID-19 seroprevalence studies</a></dt><dd><p>This is a talk that uses the same models implemented in Episuite.</p>
+</dd>
+</dl>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_se</strong> – sensitivity parameter (i.e. if there was 33 positive samples, and
+27 were detected, this parameter is 27).</p></li>
+<li><p><strong>n_se</strong> – sensitivity parameter (i.e. if there was 33 positive samples, and
+27 were detected, this parameter is 33).</p></li>
+<li><p><strong>x_sp</strong> – specificity parameter (i.e. if 172 negative tests, there was 2 false
+positives, this parameter is 170).</p></li>
+<li><p><strong>n_sp</strong> – specificity parameter (i.e. if 172 negative tests, there was 2 false
+positives, this parameter is 172).</p></li>
+<li><p><strong>obs_positive</strong> – number of observed positive counts</p></li>
+<li><p><strong>obs_total</strong> – the total of observed samples</p></li>
+<li><p><strong>true_p_prior</strong> – it can be any numpyro distribution to use as prior
+for the true prevalence (default to a flat Beta prior)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="episuite.prevalence.true_prevalence_model">
+<code class="sig-prename descclassname"><span class="pre">episuite.prevalence.</span></code><code class="sig-name descname"><span class="pre">true_prevalence_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">obs_positive:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">obs_total:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">true_p_prior:</span> <span class="pre">numpyro.distributions.distribution.Distribution</span> <span class="pre">=</span> <span class="pre">&lt;numpyro.distributions.continuous.Beta</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="_modules/episuite/prevalence.html#true_prevalence_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episuite.prevalence.true_prevalence_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a true prevalence model, which means that it will assume
+for instance perfect testing validation results if it is a
+seroprevalence study.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs_positive</strong> – number of observed positive counts</p></li>
+<li><p><strong>obs_total</strong> – the total of observed samples</p></li>
+<li><p><strong>true_p_prior</strong> – it can be any numpyro distribution to use as prior
+for the true prevalence (default to a flat Beta prior)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-episuite.mobility">
 <span id="episuite-mobility-mobility-data"></span><h3><a class="reference internal" href="#module-episuite.mobility" title="episuite.mobility"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility</span></code></a> – Mobility data<a class="headerlink" href="#module-episuite.mobility" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="module-episuite.mobility.facebook">
@@ -621,7 +688,7 @@ filter for the specified country code.</p>
 from Facebook and the University of Maryland.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>Please see <span id="id3">Fan <em>et al.</em> [<a class="reference internal" href="bibliography.html#id2">FLS+20</a>]</span> for more information
+<p>Please see <span id="id4">Fan <em>et al.</em> [<a class="reference internal" href="bibliography.html#id2">FLS+20</a>]</span> for more information
 about the COVID-19 World Survey Data API.</p>
 </div>
 <dl class="py method">
@@ -652,7 +719,7 @@ will return a DataFrame with pre-computed confidence
 intervals (percent_cli_95_upper_ci/percent_cli_95_lower_ci).</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>Please see <span id="id4">Fan <em>et al.</em> [<a class="reference internal" href="bibliography.html#id2">FLS+20</a>]</span> for more information
+<p>Please see <span id="id5">Fan <em>et al.</em> [<a class="reference internal" href="bibliography.html#id2">FLS+20</a>]</span> for more information
 about the COVID-19 World Survey Data API.</p>
 </div>
 <dl class="field-list simple">
@@ -725,7 +792,7 @@ location of ticks in the plot for the dates</p></li>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="mobility_facebook.html" title="previous page">Mobility: Facebook Movement Range Maps</a>
+    <a class='left-prev' id="prev-link" href="mobility_google.html" title="previous page">Mobility: Google COVID-19 Community Mobility Reports</a>
     <a class='right-next' id="next-link" href="bibliography.html" title="next page">Bibliography</a>
 
               </div>
@@ -737,7 +804,7 @@ location of ticks in the plot for the dates</p></li>
     </div>
 
     
-  <script src="_static/js/index.d8bbf5861d671d414e1a.js"></script>
+  <script src="_static/js/index.1e043a052b0af929e4d8.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">

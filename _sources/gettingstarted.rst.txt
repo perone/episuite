@@ -15,5 +15,7 @@ Below you will find a series of tutorials explaining
     icu_admissions_notebook.ipynb
     distributions_notebook.ipynb
     icu_simulation_notebook.ipynb
+    prevalence_notebook.ipynb
     symptom_survey.ipynb
     mobility_facebook.ipynb
+    mobility_google.ipynb

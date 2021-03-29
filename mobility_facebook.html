@@ -8,7 +8,7 @@
     <title>Mobility: Facebook Movement Range Maps &#8212; Episuite</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.101715efdecc9b59cb6e1ddfa685c31f.css" rel="stylesheet" />
+  <link href="_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.d8bbf5861d671d414e1a.js">
+  <link rel="preload" as="script" href="_static/js/index.1e043a052b0af929e4d8.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -36,7 +36,7 @@
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Episuite API" href="api.html" />
+    <link rel="next" title="Mobility: Google COVID-19 Community Mobility Reports" href="mobility_google.html" />
     <link rel="prev" title="COVID-19 World Survey Data API" href="symptom_survey.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -139,12 +139,14 @@
 <li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html">ICU - Admissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributions_notebook.html">Distributions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU occupation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prevalence_notebook.html">Bayesian estimation of prevalence models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="symptom_survey.html">COVID-19 World Survey Data API</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Mobility: Facebook Movement Range Maps</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Load-Movement-Range-Maps-data">Load Movement Range Maps data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Visualization">Visualization</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="mobility_google.html">Mobility: Google COVID-19 Community Mobility Reports</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Episuite API</a></li>
@@ -477,7 +479,7 @@ Symptom survey data is the <a class="reference internal" href="api.html#episuite
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
@@ -485,12 +487,6 @@ Symptom survey data is the <a class="reference internal" href="api.html#episuite
 <span></span><span class="n">mrange_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">load_movement_range</span><span class="p">(</span><span class="n">country_code</span><span class="o">=</span><span class="s2">&quot;BRA&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "870caef7a7ba4997abd548e237995a9b"}</script></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -788,12 +784,11 @@ Symptom survey data is the <a class="reference internal" href="api.html#episuite
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/mobility_facebook_11_0.svg" src="_images/mobility_facebook_11_0.svg" /></div>
+<img alt="_images/mobility_facebook_11_0.png" src="_images/mobility_facebook_11_0.png" />
+</div>
 </div>
 <p>We can see in this case a major reduction of mobility during the early months of the pandemic in Porto Alegre/Rio Grande do Sul/Brazil, followed by a slow rise in mobility with a downward trend after February due to the surge of cases in the city (after new mobility restrictions were deployed by the government).</p>
-<script type="application/vnd.jupyter.widget-state+json">
-{"state": {"15b40db29bf245e9a2f88c60f7c5a5d1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "2e6f6a9128a944baa88ed8cc2e635b0f": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "b93d4eeea02542cab267839a2b3a19c9": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_15b40db29bf245e9a2f88c60f7c5a5d1", "max": 66084044.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_2e6f6a9128a944baa88ed8cc2e635b0f", "value": 66084044.0}}, "563c7c84ef04400d8d9d9b4e724e1449": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "3663265880994cd1872a7c2ed5a89c1a": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "7cd3698037f04af9b8692a492c13c867": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_563c7c84ef04400d8d9d9b4e724e1449", "placeholder": "\u200b", "style": "IPY_MODEL_3663265880994cd1872a7c2ed5a89c1a", "value": "Downloading movement range data: 100%"}}, "e65a8e276e2c49858c162dfc366226fb": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "b1a0f5a286e54028977e03bbdaffdb9f": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "248af15592f24b66a72a46af435965bd": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_e65a8e276e2c49858c162dfc366226fb", "placeholder": "\u200b", "style": "IPY_MODEL_b1a0f5a286e54028977e03bbdaffdb9f", "value": " 63.0M/63.0M [00:04&lt;00:00, 18.5MiB/s]"}}, "d8db2c8ac0964a7d917d045782b994f7": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "870caef7a7ba4997abd548e237995a9b": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_7cd3698037f04af9b8692a492c13c867", "IPY_MODEL_b93d4eeea02542cab267839a2b3a19c9", "IPY_MODEL_248af15592f24b66a72a46af435965bd"], "layout": "IPY_MODEL_d8db2c8ac0964a7d917d045782b994f7"}}}, "version_major": 2, "version_minor": 0}
-</script></div>
+</div>
 </div>
 
 
@@ -803,7 +798,7 @@ Symptom survey data is the <a class="reference internal" href="api.html#episuite
               <div class='prev-next-bottom'>
                 
     <a class='left-prev' id="prev-link" href="symptom_survey.html" title="previous page">COVID-19 World Survey Data API</a>
-    <a class='right-next' id="next-link" href="api.html" title="next page">Episuite API</a>
+    <a class='right-next' id="next-link" href="mobility_google.html" title="next page">Mobility: Google COVID-19 Community Mobility Reports</a>
 
               </div>
               
@@ -814,7 +809,7 @@ Symptom survey data is the <a class="reference internal" href="api.html#episuite
     </div>
 
     
-  <script src="_static/js/index.d8bbf5861d671d414e1a.js"></script>
+  <script src="_static/js/index.1e043a052b0af929e4d8.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">

@@ -8,7 +8,7 @@
     <title>episuite.mobility.facebook &#8212; Episuite</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../../_static/css/index.101715efdecc9b59cb6e1ddfa685c31f.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.d8bbf5861d671d414e1a.js">
+  <link rel="preload" as="script" href="../../../_static/js/index.1e043a052b0af929e4d8.js">
 
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -312,7 +312,8 @@
     <span class="k">def</span> <span class="nf">_get_last_date_available</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MovementRangeResource</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">bio</span><span class="p">:</span>
             <span class="n">data</span><span class="o">.</span><span class="n">download_remote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MAIN_RESOURCE_URL</span><span class="p">,</span>
-                                 <span class="n">bio</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                                 <span class="n">bio</span><span class="p">,</span> <span class="s2">&quot;Movement Range Maps&quot;</span><span class="p">,</span>
+                                 <span class="n">show_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">bio</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
         <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
         <span class="n">parsed_json</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">,</span> <span class="p">{</span>
@@ -384,7 +385,7 @@
     </div>
 
     
-  <script src="../../../_static/js/index.d8bbf5861d671d414e1a.js"></script>
+  <script src="../../../_static/js/index.1e043a052b0af929e4d8.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ICU - Admissions &#8212; Episuite</title>
+    <title>Mobility: Google COVID-19 Community Mobility Reports &#8212; Episuite</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
@@ -36,8 +36,8 @@
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Distributions" href="distributions_notebook.html" />
-    <link rel="prev" title="Durations" href="durations_notebook.html" />
+    <link rel="next" title="Episuite API" href="api.html" />
+    <link rel="prev" title="Mobility: Facebook Movement Range Maps" href="mobility_facebook.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
   </head>
@@ -136,19 +136,16 @@
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="gettingstarted.html">Getting Started</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="durations_notebook.html">Durations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ICU - Admissions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Load-the-sample-data-and-aggregate-by-day">Load the sample data and aggregate by day</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Build-the-admissions-object">Build the admissions object</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Check-for-data-consistency">Check for data consistency</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Visualization">Visualization</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="icu_admissions_notebook.html">ICU - Admissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributions_notebook.html">Distributions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icu_simulation_notebook.html">ICU - Simulating ICU occupation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prevalence_notebook.html">Bayesian estimation of prevalence models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="symptom_survey.html">COVID-19 World Survey Data API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mobility_facebook.html">Mobility: Facebook Movement Range Maps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mobility_google.html">Mobility: Google COVID-19 Community Mobility Reports</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Mobility: Google COVID-19 Community Mobility Reports</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Load-Google-mobility-data">Load Google mobility data</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Episuite API</a></li>
@@ -170,23 +167,8 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Load-the-sample-data-and-aggregate-by-day">
-   Load the sample data and aggregate by day
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Build-the-admissions-object">
-   Build the admissions object
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Check-for-data-consistency">
-   Check for data consistency
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Visualization">
-   Visualization
+  <a class="reference internal nav-link" href="#Load-Google-mobility-data">
+   Load Google mobility data
   </a>
  </li>
 </ul>
@@ -454,24 +436,17 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="ICU---Admissions">
-<h1>ICU - Admissions<a class="headerlink" href="#ICU---Admissions" title="Permalink to this headline">¶</a></h1>
-<p>This section shows how to use the admissions functionality of Episuite.
-The class <a class="reference internal" href="api.html#episuite.icu.ICUAdmissions" title="episuite.icu.ICUAdmissions"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICUAdmissions</span></code></a> holds a admission series
-that is indexed by day and number of admissions on that dat.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In the example below, we will use a sample dataset that comes embedded
-in Episuite with real data from the SARS-CoV-2 outbreak in south of Brazil.
-This dataset can be accessed using the <a class="reference internal" href="api.html#episuite.data.admissions_sample" title="episuite.data.admissions_sample"><code class="xref py py-meth docutils literal notranslate"><span class="pre">admissions_sample()</span></code></a>
-function from the <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data</span></code></a> module.</p>
-</div>
+<div class="section" id="Mobility:-Google-COVID-19-Community-Mobility-Reports">
+<h1>Mobility: Google COVID-19 Community Mobility Reports<a class="headerlink" href="#Mobility:-Google-COVID-19-Community-Mobility-Reports" title="Permalink to this headline">¶</a></h1>
+<p>This section describes how to use the Google mobility reports client
+from Episuite. The main class used to download and parse the Google
+mobility data is the <code class="xref py py-class docutils literal notranslate"><span class="pre">GoogleMobility</span></code>.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt>Module <a class="reference internal" href="api.html#module-episuite.icu" title="episuite.icu"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.icu</span></code></a></dt><dd><p>Documentation of the <a class="reference internal" href="api.html#module-episuite.icu" title="episuite.icu"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.icu</span></code></a> module.</p>
+<dt><a class="reference external" href="https://www.google.com/covid19/mobility//">Google COVID-19 Community Mobility Reports</a></dt><dd><p>Google COVID-19 Community Mobility Reports.</p>
 </dd>
-<dt>Module <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code></a></dt><dd><p>Documentation of the <a class="reference internal" href="api.html#module-episuite.data" title="episuite.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.data</span></code></a> module.</p>
+<dt>Module <code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility.google</span></code></dt><dd><p>Documentation of the <code class="xref py py-mod docutils literal notranslate"><span class="pre">episuite.mobility.google</span></code> module.</p>
 </dd>
 </dl>
 </div>
@@ -481,34 +456,44 @@ function from the <a class="reference internal" href="api.html#module-episuite.d
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">episuite.icu</span> <span class="kn">import</span> <span class="n">ICUAdmissions</span>
-<span class="kn">from</span> <span class="nn">episuite</span> <span class="kn">import</span> <span class="n">data</span>
+<span class="kn">from</span> <span class="nn">episuite.mobility</span> <span class="kn">import</span> <span class="n">google</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="Load-the-sample-data-and-aggregate-by-day">
-<h2>Load the sample data and aggregate by day<a class="headerlink" href="#Load-the-sample-data-and-aggregate-by-day" title="Permalink to this headline">¶</a></h2>
-<p>First we need to load a sample dataset.</p>
+<div class="section" id="Load-Google-mobility-data">
+<h2>Load Google mobility data<a class="headerlink" href="#Load-Google-mobility-data" title="Permalink to this headline">¶</a></h2>
+<p>The Episuite API for the Google mobility reports allows you to download the entire dataset or to filter by a single country by using a country/region code. We will here just download data from Brazil using the <code class="docutils literal notranslate"><span class="pre">BR</span></code> country code.</p>
+<p>The mobility reports are increasing in size every day, that’s why filtering by your country code is highly recommended. If you specify the <code class="docutils literal notranslate"><span class="pre">country_region_code</span></code> while calling the <code class="docutils literal notranslate"><span class="pre">load_report()</span></code>, Episuite will filter the dataset without loading it entirely to memory.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sample_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">admissions_sample</span><span class="p">()</span>
+<span></span><span class="n">client</span> <span class="o">=</span> <span class="n">google</span><span class="o">.</span><span class="n">GoogleMobility</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mobility_data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">load_report</span><span class="p">(</span><span class="n">country_region_code</span><span class="o">=</span><span class="s2">&quot;BR&quot;</span><span class="p">,</span>
+                                   <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sample_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span></span><span class="n">mobility_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -530,184 +515,118 @@ function from the <a class="reference internal" href="api.html#module-episuite.d
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>DATE_START</th>
-      <th>DATE_END</th>
-      <th>OUTCOME</th>
+      <th>country_region_code</th>
+      <th>country_region</th>
+      <th>sub_region_1</th>
+      <th>sub_region_2</th>
+      <th>metro_area</th>
+      <th>iso_3166_2_code</th>
+      <th>census_fips_code</th>
+      <th>place_id</th>
+      <th>date</th>
+      <th>retail_and_recreation_percent_change_from_baseline</th>
+      <th>grocery_and_pharmacy_percent_change_from_baseline</th>
+      <th>parks_percent_change_from_baseline</th>
+      <th>transit_stations_percent_change_from_baseline</th>
+      <th>workplaces_percent_change_from_baseline</th>
+      <th>residential_percent_change_from_baseline</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>2020-06-17</td>
-      <td>2020-08-03</td>
-      <td>RECOVERY</td>
+      <th>1148236</th>
+      <td>BR</td>
+      <td>Brazil</td>
+      <td>State of Tocantins</td>
+      <td>Tocantinópolis</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>ChIJdy1nSeuG2pIR7Nmgv2Wq2uo</td>
+      <td>2021-03-11</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-1.0</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>2020-06-11</td>
-      <td>2020-06-21</td>
-      <td>DEATH</td>
+      <th>1148237</th>
+      <td>BR</td>
+      <td>Brazil</td>
+      <td>State of Tocantins</td>
+      <td>Tocantinópolis</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>ChIJdy1nSeuG2pIR7Nmgv2Wq2uo</td>
+      <td>2021-03-12</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>13.0</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>2020-07-12</td>
-      <td>2020-08-02</td>
-      <td>DEATH</td>
+      <th>1148238</th>
+      <td>BR</td>
+      <td>Brazil</td>
+      <td>State of Tocantins</td>
+      <td>Tocantinópolis</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>ChIJdy1nSeuG2pIR7Nmgv2Wq2uo</td>
+      <td>2021-03-13</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>7.0</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>2020-06-25</td>
-      <td>2020-07-31</td>
-      <td>DEATH</td>
+      <th>1148239</th>
+      <td>BR</td>
+      <td>Brazil</td>
+      <td>State of Tocantins</td>
+      <td>Tocantinópolis</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>ChIJdy1nSeuG2pIR7Nmgv2Wq2uo</td>
+      <td>2021-03-15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>2020-07-24</td>
-      <td>2020-08-16</td>
-      <td>DEATH</td>
+      <th>1148240</th>
+      <td>BR</td>
+      <td>Brazil</td>
+      <td>State of Tocantins</td>
+      <td>Tocantinópolis</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>ChIJdy1nSeuG2pIR7Nmgv2Wq2uo</td>
+      <td>2021-03-16</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sample_data</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(4538, 3)
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># Filter for only RECOVERY or DEATH outcomes</span>
-<span class="n">sample_data</span> <span class="o">=</span> <span class="n">sample_data</span><span class="p">[</span><span class="n">sample_data</span><span class="p">[</span><span class="s2">&quot;OUTCOME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;RECOVERY&quot;</span><span class="p">,</span> <span class="s2">&quot;DEATH&quot;</span><span class="p">])]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># Build an aggregation by day</span>
-<span class="n">sample_data_admissions</span> <span class="o">=</span> <span class="n">sample_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;DATE_START&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># Resample the DataFrame per day and fill dates without admissions with zeros</span>
-<span class="n">sample_data_admissions</span> <span class="o">=</span> <span class="n">sample_data_admissions</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sample_data_admissions</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-DATE_START
-2020-03-18    2
-2020-03-19    1
-2020-03-20    2
-2020-03-21    1
-2020-03-22    2
-Freq: D, dtype: int64
-</pre></div></div>
-</div>
-<p>As you can see, we now have a series of admissions per day indexed by <strong>DATE_START</strong>.</p>
-</div>
-<div class="section" id="Build-the-admissions-object">
-<h2>Build the admissions object<a class="headerlink" href="#Build-the-admissions-object" title="Permalink to this headline">¶</a></h2>
-<p>Here we are going to build the admissions object. This class accepts any series, therefore it can be reused for other admissions such as regular hospitalizations and not only ICU.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">admissions</span> <span class="o">=</span> <span class="n">ICUAdmissions</span><span class="p">(</span><span class="n">sample_data_admissions</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">admissions</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-ICUAdmissions[Entries=352, Total Admissions=4431]&gt;
-</pre></div></div>
-</div>
-</div>
-<div class="section" id="Check-for-data-consistency">
-<h2>Check for data consistency<a class="headerlink" href="#Check-for-data-consistency" title="Permalink to this headline">¶</a></h2>
-<p>One of the major difficulties when dealing with real data is that it often comes with some issues such as duplicated dates, admissions with gaps, non-monotonicity, etc. This method below called <code class="docutils literal notranslate"><span class="pre">sanity_check()</span></code> will check for these issues and raise an exception in case of failure.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">admissions</span><span class="o">.</span><span class="n">sanity_check</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="Visualization">
-<h2>Visualization<a class="headerlink" href="#Visualization" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">admissions</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="_images/icu_admissions_notebook_17_0.svg" src="_images/icu_admissions_notebook_17_0.svg" /></div>
-</div>
-<p>Now that we have the admissions, we can proceed by using it for simulation or modelling purposes.</p>
 </div>
 </div>
 
@@ -717,8 +636,8 @@ ICUAdmissions[Entries=352, Total Admissions=4431]&gt;
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="durations_notebook.html" title="previous page">Durations</a>
-    <a class='right-next' id="next-link" href="distributions_notebook.html" title="next page">Distributions</a>
+    <a class='left-prev' id="prev-link" href="mobility_facebook.html" title="previous page">Mobility: Facebook Movement Range Maps</a>
+    <a class='right-next' id="next-link" href="api.html" title="next page">Episuite API</a>
 
               </div>
               

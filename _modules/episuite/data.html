@@ -8,7 +8,7 @@
     <title>episuite.data &#8212; Episuite</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.101715efdecc9b59cb6e1ddfa685c31f.css" rel="stylesheet" />
+  <link href="../../_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.d8bbf5861d671d414e1a.js">
+  <link rel="preload" as="script" href="../../_static/js/index.1e043a052b0af929e4d8.js">
 
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -190,13 +190,17 @@
 
 <div class="viewcode-block" id="load_from_cache"><a class="viewcode-back" href="../../api.html#episuite.data.load_from_cache">[docs]</a><span class="k">def</span> <span class="nf">load_from_cache</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
                     <span class="n">desc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                    <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+                    <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="n">invalidate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
     <span class="n">cache_dir</span> <span class="o">=</span> <span class="n">get_cache_dir_file</span><span class="p">()</span>
     <span class="n">filename_output</span> <span class="o">=</span> <span class="n">cache_dir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
     <span class="c1"># Already exists in the cache</span>
     <span class="k">if</span> <span class="n">filename_output</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">filename_output</span>
+        <span class="k">if</span> <span class="n">invalidate</span><span class="p">:</span>
+            <span class="n">filename_output</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">filename_output</span>
 
     <span class="k">with</span> <span class="n">filename_output</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fhandle</span><span class="p">:</span>
         <span class="n">download_remote</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">fhandle</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">show_progress</span><span class="p">)</span>
@@ -262,7 +266,7 @@
     </div>
 
     
-  <script src="../../_static/js/index.d8bbf5861d671d414e1a.js"></script>
+  <script src="../../_static/js/index.1e043a052b0af929e4d8.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">
